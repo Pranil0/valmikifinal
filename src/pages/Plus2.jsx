@@ -137,32 +137,42 @@ const Plus2 = () => {
         </p>
       </section>
 
-      <MessageBlock
-        img={principalImg}
-        name="Ram Thapa"
-        designation="Coordinator"
-        institute="Valmiki Shiksha Sadan"
-        message={
-          <>
-            <p className="mb-4 text-justify">
-              Our +2 students are guided through rigorous academic programs designed to prepare them for university and professional careers.
-            </p>
-            <p className="mb-4 text-justify">
-              Through modern labs, interactive learning, and mentorship, students are encouraged to think critically and engage in collaborative projects.
-            </p>
-            <p className="mb-4 text-justify">
-              We strive to instill responsibility, discipline, and curiosity beyond the classroom, producing confident, knowledgeable, and ethical young adults.
-            </p>
-            <p className="mt-6 text-[#777777] text-sm md:text-[15px]">
-              I look forward to guiding and celebrating our students' successes as they progress toward a bright future.
-            </p>
-            <div className="mt-4">
-              <p className="font-semibold text-gray-900 text-sm md:text-base">Ram Thapa</p>
-              <p className="text-xs md:text-sm text-gray-500">Coordinator, Valmiki Shiksha Sadan</p>
-            </div>
-          </>
-        }
-      />
+     <MessageBlock
+  img={principalImg}
+  name="Ram Thapa"
+  designation="Coordinator"
+  institute="Valmiki Shiksha Sadan"
+  message={
+    <>
+      <p className="mb-4 text-justify">
+        Our +2 students are guided through rigorous academic programs designed to prepare them for university, professional careers, and lifelong learning. We aim to provide an environment that challenges, inspires, and supports each student in reaching their full potential.
+      </p>
+      <p className="mb-4 text-justify">
+        Through well-equipped modern labs, interactive classrooms, and hands-on learning experiences, students are encouraged to think critically, solve complex problems, and engage in collaborative projects. Our curriculum is structured to balance depth of knowledge with practical application, ensuring students are prepared for higher education and future challenges.
+      </p>
+      <p className="mb-4 text-justify">
+        Beyond academics, we emphasize holistic development. Students participate in co-curricular activities such as debates, sports, cultural programs, and community service. These experiences help nurture leadership, teamwork, creativity, and resilience, shaping them into well-rounded individuals.
+      </p>
+      <p className="mb-4 text-justify">
+        Mentorship is at the heart of our approach. Teachers and staff provide personalized guidance, helping students navigate academic choices, career aspirations, and personal growth. We focus on fostering responsibility, discipline, ethical values, and a sense of purpose in every student.
+      </p>
+      <p className="mb-4 text-justify">
+        At Valmiki Shiksha Sadan, we take pride in celebrating our students' achievements, encouraging them to set high standards and pursue excellence. We strive to cultivate an environment that motivates self-discovery, innovation, and confidence, preparing students to thrive in the global community.
+      </p>
+      <p className="mb-4 text-justify">
+        I am committed to guiding and mentoring our +2 students every step of the way, ensuring that they not only succeed academically but also grow as responsible, knowledgeable, and compassionate young adults ready to take on the challenges of the future.
+      </p>
+      <p className="mt-6 text-[#777777] text-sm md:text-[15px]">
+        I look forward to witnessing and celebrating the journey and successes of our students as they move toward a bright and promising future.
+      </p>
+      <div className="mt-4">
+        <p className="font-semibold text-gray-900 text-sm md:text-base">Ram Thapa</p>
+        <p className="text-xs md:text-sm text-gray-500">Coordinator, Valmiki Shiksha Sadan</p>
+      </div>
+    </>
+  }
+/>
+
 
       {/* CURRICULUM SECTIONS */}
       <section className="bg-gray-50 py-16 px-6 md:px-12 max-w-6xl mx-auto">

@@ -36,6 +36,11 @@ import community9 from "../assets/gallery/social-community/community9.jpg";
 
 import infrastructure1 from "../assets/gallery/infrastructure/infrastructure1.jpg";
 
+import infrastructure2 from "../assets/schoolbuilding.webp";
+import infrastructure3 from "../assets/plus2gate.webp";
+import infrastructure4 from "../assets/wellbeing/studentlife2.webp";
+
+
 import events1 from "../assets/gallery/events/events1.jpg";
 import events2 from "../assets/gallery/events/events2.jpg";
 import events3 from "../assets/gallery/events/events3.jpg";
@@ -44,13 +49,25 @@ import events5 from "../assets/gallery/events/events5.jpg";
 import events6 from "../assets/gallery/events/events6.jpg";
 import events7 from "../assets/gallery/events/events7.jpg";
 
+
+
+import sports1 from "../assets/gallery/sports/sports1.jpg";
+
+import sports2 from "../assets/gallery/sports/sports2.jpg";
+
+import sports3 from "../assets/gallery/sports/sports3.jpg";
+
+import sports4 from "../assets/gallery/sports/sports4.jpg";
 // Gallery map
 const galleryImages = {
   academics: [academics1, academics2, academics3, academics4, academics5, academics6],
   "tours-trips": [tours1, tours2, tours3,tours4,tours5,tours6,tours7,tours8],
   community: [community1, community2,community3,community4,community5,community6,community7,community8,community9],
-  infrastructure: [infrastructure1],
+  infrastructure: [infrastructure1,infrastructure2,infrastructure3,infrastructure4],
   events: [events1, events2, events3,events4,events5,events6,events7],
+  sports : [sports1,sports2, sports3,sports4]
+
+  
 };
 
 export default function AlbumPage() {

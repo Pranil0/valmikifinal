@@ -20,7 +20,7 @@ import {
 import { NavLink } from "react-router-dom";
 
 
-import valmikibuilding from "../assets/valmikibuilding.png";
+
 
 // ================= FAQ Component =================
 const FAQItem = ({ question, answer }) => {

@@ -4,7 +4,12 @@ import HeroSection from "../components/HeroSection";
 import blogHeroImg from "../assets/valmikibuilding.png";
 // Blog image
 import valmiki from "../assets/valmikicollegebuilding.jpg";
-
+import blog1 from "../assets/blog1.jpeg";
+import blog2 from "../assets/blog2.jpeg";
+import blog3 from "../assets/blog3.jpeg";
+import blog4 from "../assets/blog4.jpeg";
+import blog5 from "../assets/blog5.webp";
+import blog6 from "../assets//blog6.jpeg";
 const Blogs = () => {
   // ================= BLOG DATA =================
   const blogs = [
@@ -15,7 +20,7 @@ const Blogs = () => {
       category: "Education",
       author: "Saraswati Karki",
       date: "10 Dec 2023",
-      image: valmiki,
+      image: blog1,
     },
     {
       id: 2,
@@ -24,7 +29,7 @@ const Blogs = () => {
       category: "Study Tips",
       author: "Anisha Shrestha",
       date: "8 Dec 2023",
-      image: valmiki,
+      image: blog2,
     },
     {
       id: 3,
@@ -33,7 +38,7 @@ const Blogs = () => {
       category: "Technology",
       author: "Krish Rana",
       date: "5 Dec 2023",
-      image: valmiki,
+      image: blog3,
     },
     {
       id: 4,
@@ -42,7 +47,7 @@ const Blogs = () => {
       category: "Career",
       author: "Manisha Paudel",
       date: "2 Dec 2023",
-      image: valmiki,
+      image: blog4,
     },
     {
       id: 5,
@@ -51,7 +56,7 @@ const Blogs = () => {
       category: "Study Tips",
       author: "Rohan Adhikari",
       date: "28 Nov 2023",
-      image: valmiki,
+      image: blog5,
     },
     {
       id: 6,
@@ -60,7 +65,7 @@ const Blogs = () => {
       category: "Education",
       author: "Deepak Subedi",
       date: "22 Nov 2023",
-      image: valmiki,
+      image: blog6,
     },
   ];
 

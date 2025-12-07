@@ -4,6 +4,12 @@ import { Home } from "lucide-react";
 import valmiki from "../assets/valmikicollegebuilding.jpg";
 import blogHeroImg from "../assets/valmikibuilding.png";
 import HeroSection from "../components/HeroSection";
+import blog1 from "../assets/blog1.jpeg";
+import blog2 from "../assets/blog2.jpeg";
+import blog3 from "../assets/blog3.jpeg";
+import blog4 from "../assets/blog4.jpeg";
+import blog5 from "../assets/blog5.webp";
+import blog6 from "../assets//blog6.jpeg";
 const BlogDetails = () => {
   const { id } = useParams();
 
@@ -16,7 +22,7 @@ const blogs = [
     category: "Education",
     author: "Saraswati Karki",
     date: "10 Dec 2023",
-    image: valmiki,
+    image: blog1,
     content: `
       <p>
         Choosing the right college is one of the most important decisions in a student's life.
@@ -68,7 +74,7 @@ const blogs = [
     category: "Study Tips",
     author: "Anisha Shrestha",
     date: "8 Dec 2023",
-    image: valmiki,
+    image: blog2,
     content: `
       <p>
         Studying smart is more effective than studying long hours. With the right techniques,
@@ -110,7 +116,7 @@ const blogs = [
     category: "Technology",
     author: "Krish Rana",
     date: "5 Dec 2023",
-    image: valmiki,
+    image: blog3,
     content: `
       <p>
         Technology has changed the way students learn, teachers teach, and colleges operate.
@@ -155,7 +161,7 @@ const blogs = [
     category: "Career",
     author: "Manisha Paudel",
     date: "2 Dec 2023",
-    image: valmiki,
+    image: blog4,
     content: `
       <p>
         Soft skills are as important as academic knowledge. They determine how well you communicate,
@@ -198,7 +204,7 @@ const blogs = [
     category: "Study Tips",
     author: "Rohan Adhikari",
     date: "28 Nov 2023",
-    image: valmiki,
+    image: blog5,
     content: `
       <p>
         Improving academic performance doesn't require magic—just discipline, strategy, and consistency.
@@ -240,7 +246,7 @@ const blogs = [
     category: "Education",
     author: "Deepak Subedi",
     date: "22 Nov 2023",
-    image: valmiki,
+    image: blog6,
     content: `
       <p>
         The world is evolving rapidly — and so should we. Continuous learning helps individuals

@@ -3,15 +3,17 @@ import academicsImg from "../assets/gallery/categories/academics.jpg";
 import toursImg from "../assets/gallery/categories/tours.jpg";
 import communityImg from "../assets/gallery/categories/community.jpg";
 import infraImg from "../assets/gallery/categories/infrastructure.jpg";
-import eventsImg from "../assets/gallery/categories/events.jpg";
-
+import eventsImg from "../assets/gallery/categories/events.webp";
+import sports from "../assets/gallery/categories/sports.jpg";
 export default function GalleryCategories() {
   const categories = [
     { id: "academics", name: "Academics", image: academicsImg },
     { id: "tours-trips", name: "Tours & Trips", image: toursImg },
     { id: "community", name: "Social & Community Programs", image: communityImg },
     { id: "infrastructure", name: "Infrastructure & Facilities", image: infraImg },
-    { id: "events", name: "Events & Celebrations", image: eventsImg }
+    { id: "events", name: "Events & Celebrations", image: eventsImg },
+        { id: "sports", name: "Sports", image: sports }
+
   ];
 
   return (

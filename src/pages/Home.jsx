@@ -33,6 +33,7 @@ import cloud from "../assets/cloud.png";
 import landinghero1 from "../assets/landinghero1.mp4";
 import WellBeingSection from "../components/WellBeingSection";
 import NewsList from "../components/NewsList";
+import CTA from "../components/CTA";
 
 // ✅ Counter Box Component
 const CounterBox = ({ end, label, suffix = "+" }) => {
@@ -356,138 +357,103 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ====== WELL-BALANCED WELL-BEING SECTION ====== */}
-      
-<WellBeingSection/>
-
+  {/* ====== WELL-BALANCED WELL-BEING SECTION ====== */}
+<section className="relative bg-gray-50 py-16 md:py-20">
+  <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+    <WellBeingSection />
+  </div>
+</section>
 {/* ====== CORE VALUES SECTION ====== */}
-      <section className="bg-white py-16 md:py-20">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12 items-center px-6 md:px-12">
-          {/* Left - Image */}
-          <img
-  src={corevalues}
-  alt="Core Values"
-  className="rounded-lg shadow-lg w-full max-w-xs md:max-w-sm h-auto object-cover"
-/>
+<section className="relative bg-white py-16 md:py-20">
+  <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+
+    {/* Title centered on top */}
+    <div className="text-center mb-12">
+      <p className="text-[#0F75BD] font-semibold uppercase tracking-wider text-xs md:text-sm">
+        Our Values
+      </p>
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+        The Core Values That Shape Us
+      </h2>
+    </div>
+
+    {/* Content: Left Image + Right Value Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+      {/* Left - Core Values Image */}
+      {/* Left - Core Values Image */}
+<div className="flex justify-center md:justify-start">
+  <div className="relative md:translate-x-16"> {/* Add slight shift to the right */}
+    <img
+      src={corevalues}
+      alt="Core Values"
+      className="rounded-lg shadow-lg w-64 md:w-80 lg:w-96 h-auto object-cover"
+    />
+    {/* Optional decorative overlay */}
+    <div className="absolute top-4 left-4 w-16 h-16 bg-[#0F75BD]/10 rounded-full blur-xl pointer-events-none"></div>
+  </div>
+</div>
 
 
-          {/* Right - Content */}
-          <div className="space-y-7">
-            <div>
-              <p className="text-[#0F75BD] font-semibold uppercase tracking-wider text-xs md:text-sm">
-                Our Values
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-                The Core Values That <br /> Shape Us
-              </h2>
-            </div>
+      {/* Right - Value Cards */}
+      <div className="space-y-7">
 
-            {/* Excellence */}
-            <div className="flex items-start gap-4">
-              <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
-                <Handshake className="text-[#0F75BD] w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 text-base md:text-lg">
-                  Excellence
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Pursuing the highest standards in education and learning with
-                  dedicated teachers and supportive academic guidance.
-                </p>
-              </div>
-            </div>
-
-            {/* Diversity */}
-            <div className="flex items-start gap-4">
-              <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
-                <Shapes className="text-[#0F75BD] w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 text-base md:text-lg">
-                  Diversity
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Fostering inclusion, celebrating differences, and respecting
-                  cultures within and beyond the classroom.
-                </p>
-              </div>
-            </div>
-
-            {/* Innovation */}
-            <div className="flex items-start gap-4">
-              <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
-                <Lightbulb className="text-[#0F75BD] w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-800 text-base md:text-lg">
-                  Innovation
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Encouraging creativity and new ideas by creating a safe space
-                  for students to explore, experiment, and grow.
-                </p>
-              </div>
-            </div>
+        {/* Excellence */}
+        <div className="flex items-start gap-4">
+          <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
+            <Handshake className="text-[#0F75BD] w-6 h-6" />
           </div>
-        </div>
-      </section>
-
-{/* ================== NEWS UPDATES SECTION ================== */}
-<NewsList limit={4} grid="2" showSearch={false} />
-
-      {/* ================== SUBSCRIBE SECTION ================== */}
-      <section className="relative py-16 md:py-20 px-6">
-        <div className="relative max-w-6xl mx-auto rounded-2xl overflow-hidden shadow-lg bg-[#0F75BD]">
-          {/* Clouds */}
-          <img
-            src={cloud}
-            alt="cloud"
-            className="absolute top-6 left-10 w-16 opacity-70 animate-floatRight"
-          />
-          <img
-            src={cloud}
-            alt="cloud"
-            className="absolute bottom-10 right-16 w-20 opacity-60 animate-pulse"
-          />
-          <img
-            src={cloud}
-            alt="cloud"
-            className="absolute top-1/2 left-1/4 w-14 opacity-50 animate-bounce-slow"
-          />
-
-          {/* Content */}
-          <div className="relative px-6 py-12 md:py-16 text-center text-white z-10">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-              Take The First Step Towards Your Bright Future
-            </h2>
-            <p className="mb-7 text-gray-100 max-w-2xl mx-auto text-sm md:text-base">
-              Be the first to know about admissions, academic programs, events,
-              and achievements.
-            </p>
-
-            {/* Subscribe Form */}
-            <form className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full md:flex-1 px-5 py-3 rounded-lg bg-white text-black text-sm md:text-base shadow focus:outline-none focus:ring-2 focus:ring-white transition"
-              />
-              <button
-                type="submit"
-                className="bg-white text-[#0F75BD] px-8 py-3 rounded-lg font-semibold text-sm md:text-base shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl"
-              >
-                Subscribe
-              </button>
-            </form>
-
-            <p className="mt-5 text-xs md:text-sm text-gray-200 opacity-90 max-w-2xl mx-auto">
-              Join our mailing list today and receive updates that help you stay
-              informed about your child's future.
+          <div>
+            <h3 className="font-semibold text-gray-800 text-base md:text-lg">
+              Excellence
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Pursuing the highest standards in education and learning with dedicated teachers and supportive academic guidance.
             </p>
           </div>
         </div>
-      </section>
+
+        {/* Diversity */}
+        <div className="flex items-start gap-4">
+          <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
+            <Shapes className="text-[#0F75BD] w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 text-base md:text-lg">
+              Diversity
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Fostering inclusion, celebrating differences, and respecting cultures within and beyond the classroom.
+            </p>
+          </div>
+        </div>
+
+        {/* Innovation */}
+        <div className="flex items-start gap-4">
+          <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
+            <Lightbulb className="text-[#0F75BD] w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 text-base md:text-lg">
+              Innovation
+            </h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Encouraging creativity and new ideas by creating a safe space for students to explore, experiment, and grow.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section className="relative bg-white">
+  <NewsList limit={4} grid="2" showSearch={false} className="mb-0" />
+  <CTA className="mt-0" />
+</section>
     </>
   );
 };

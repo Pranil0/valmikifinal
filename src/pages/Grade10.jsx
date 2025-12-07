@@ -169,21 +169,37 @@ const Grade1to10 = () => {
           <span className="text-[#CC0033]">Vice Principal</span>
         </h2>
 
-        <MessageBlock
-          img={principalImg}
-          name="Sita Sharma"
-          designation="Vice Principal"
-          institute="Valmiki Shiksha Sadan"
-          message={
-            <>
-              <p className="mb-4 text-justify">
-                At Valmiki Shiksha Sadan, our students from Grade 1 to 10 are
-                encouraged to explore their strengths and build a strong
-                academic foundation.
-              </p>
-            </>
-          }
-        />
+       <MessageBlock
+  img={principalImg}
+  name="Sita Sharma"
+  designation="Vice Principal"
+  institute="Valmiki Shiksha Sadan"
+  message={
+    <>
+      <p className="mb-4 text-justify">
+        At Valmiki Shiksha Sadan, our students from Grade 1 to 10 are encouraged to explore their strengths and build a strong academic foundation. We are committed to providing a well-rounded education that inspires curiosity, creativity, and critical thinking in every child.
+      </p>
+      <p className="mb-4 text-justify">
+        Our curriculum is designed to nurture both intellectual and personal growth. Students are guided to not only excel academically but also develop problem-solving skills, independent thinking, and a lifelong love for learning. We emphasize a balance between theoretical knowledge and practical application, ensuring that our students are prepared for higher education and future careers.
+      </p>
+      <p className="mb-4 text-justify">
+        Beyond academics, Valmiki Shiksha Sadan fosters a vibrant environment for co-curricular activities. Our students actively participate in sports, arts, music, debate, science clubs, and social initiatives. These activities help in building confidence, teamwork, leadership, and resilience. Every achievement, whether in the classroom or on the field, is celebrated as a step towards holistic growth.
+      </p>
+      
+      
+      <p className="mb-4 text-justify">
+        At Valmiki Shiksha Sadan, we celebrate the successes of our students and alumni, recognizing their achievements in academics, co-curricular activities, and global contributions. We believe that every student has the potential to shine, and it is our mission to provide the guidance, opportunities, and inspiration needed to reach that potential.
+      </p>
+      <p className="mb-4 text-justify">
+        Together with parents, teachers, and the community, we aim to create an educational experience that is enriching, transformative, and empowering. We focus on nurturing confident, compassionate, and capable individuals who are prepared to navigate the challenges of the modern world with resilience, integrity, and a positive outlook.
+      </p>
+      <p className="mb-4 text-justify">
+        I warmly invite students, parents, and visitors to explore our school community, witness our dedication to excellence, and join us in our mission to educate and inspire the leaders of tomorrow. At Valmiki Shiksha Sadan, we are committed to fostering a lifelong love of learning and helping every student achieve their dreams.
+      </p>
+    </>
+  }
+/>
+
       </section>
 
       {/* CURRICULUM BLOCK */}
