@@ -16,11 +16,14 @@ export default function Navbar() {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
-  const [showTopBar, setShowTopBar] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [spacerHeight, setSpacerHeight] = useState(0);
   const location = useLocation();
 
   const aboutRef = useRef(null);
   const mobileAboutRef = useRef(null);
+  const topBarRef = useRef(null);
+  const mainNavRef = useRef(null);
 
   const isAboutActive =
     location.pathname === "/introduction" || location.pathname === "/principal";
@@ -46,31 +49,31 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Smooth scroll logic using requestAnimationFrame
+  // Calculate spacer height
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
-    const updateScroll = () => {
-      const currentScrollY = window.scrollY;
-      const delta = currentScrollY - lastScrollY;
-
-      if (delta > 5 && currentScrollY > 50) {
-        // scrolling down
-        setShowTopBar(false);
-      } else if (delta < -5) {
-        // scrolling up
-        setShowTopBar(true);
-      }
-
-      lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
-      ticking = false;
+    const calculateSpacerHeight = () => {
+      const topBarHeight = topBarRef.current?.offsetHeight || 0;
+      const mainNavHeight = mainNavRef.current?.offsetHeight || 0;
+      setSpacerHeight(topBarHeight + mainNavHeight);
     };
 
+    calculateSpacerHeight();
+    window.addEventListener("resize", calculateSpacerHeight);
+    const timer = setTimeout(calculateSpacerHeight, 100);
+
+    return () => {
+      window.removeEventListener("resize", calculateSpacerHeight);
+      clearTimeout(timer);
+    };
+  }, [mobileOpen, isScrolled]);
+
+  // Handle scroll - simple threshold based
+  useEffect(() => {
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateScroll);
-        ticking = true;
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
       }
     };
 
@@ -78,16 +81,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Determine top offset for main navbar
-  const getNavbarTop = () => (showTopBar ? (window.innerWidth >= 1024 ? 50 : 40) : 0);
-
   return (
-    <header className="w-full font-sans z-50">
-      {/* Top Bar */}
+    <>
+      {/* Top Bar - Static/Relative positioning, not fixed */}
       <div
-        className={`w-full bg-blue-700 text-white text-xs md:text-sm py-2 px-4 md:px-6 flex items-center justify-between transition-transform duration-300 ${
-          showTopBar ? "translate-y-0" : "-translate-y-full"
-        }`}
+        ref={topBarRef}
+        className="w-full bg-blue-700 text-white text-xs md:text-sm py-2 px-4 md:px-6 flex items-center justify-between"
       >
         <div className="flex items-center space-x-3">
           <a href="https://www.facebook.com/vsshssplustwo" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
@@ -105,20 +104,32 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main Navbar */}
+      {/* Main Navbar - Becomes sticky/fixed when scrolled */}
       <div
-        className="bg-white py-3 lg:py-5 px-4 md:px-6 flex items-center justify-between fixed w-full shadow-md z-50 transition-all duration-300"
-        style={{ top: getNavbarTop() }}
+        ref={mainNavRef}
+        className={`bg-white flex items-center justify-between w-full shadow-md transition-all duration-300 ${
+          isScrolled 
+            ? "fixed top-0 left-0 right-0 z-50 shadow-lg py-2 lg:py-3 px-4 md:px-6" 
+            : "relative py-3 lg:py-5 px-4 md:px-6"
+        }`}
       >
         <NavLink to="/" className="flex items-center md:ml-20">
-          <div className="bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ width: "80px", height: "80px" }}>
+          <div 
+            className={`bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-105 cursor-pointer ${
+              isScrolled ? "w-[60px] h-[60px]" : "w-[80px] h-[80px]"
+            }`}
+          >
             <img src={valmikilogo} alt="Logo" className="w-full h-full p-2" />
           </div>
           <div className="ml-3 md:ml-4">
-            <h1 className="text-base md:text-2xl font-extrabold tracking-wide bg-gradient-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent">
+            <h1 className={`font-extrabold tracking-wide bg-gradient-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent transition-all duration-300 ${
+              isScrolled ? "text-sm md:text-xl" : "text-base md:text-2xl"
+            }`}>
               VALMIKI SHIKSHA SADAN
             </h1>
-            <p className="text-[10px] md:text-xs text-gray-500 tracking-[0.18em] uppercase mt-1">
+            <p className={`text-gray-500 tracking-[0.18em] uppercase mt-1 transition-all duration-300 ${
+              isScrolled ? "text-[8px] md:text-[10px]" : "text-[10px] md:text-xs"
+            }`}>
               Secondary School • Bharatpur
             </p>
           </div>
@@ -128,7 +139,9 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 text-gray-700 mr-4 lg:mr-10 relative">
           <NavLink
             to="/"
-            className={({ isActive }) => `relative pb-1 text-sm lg:text-base font-medium tracking-wide transition-colors duration-200 whitespace-nowrap hover:text-blue-700 ${isActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
+            className={({ isActive }) => `relative pb-1 font-medium tracking-wide transition-all duration-200 whitespace-nowrap hover:text-blue-700 ${
+              isScrolled ? "text-xs lg:text-sm" : "text-sm lg:text-base"
+            } ${isActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
           >
             Home
           </NavLink>
@@ -137,7 +150,9 @@ export default function Navbar() {
           <div ref={aboutRef} className="relative">
             <button
               onClick={() => setAboutOpen((prev) => !prev)}
-              className={`relative pb-1 text-sm lg:text-base font-medium tracking-wide transition-colors duration-200 whitespace-nowrap hover:text-blue-700 flex items-center gap-1 ${isAboutActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
+              className={`relative pb-1 font-medium tracking-wide transition-all duration-200 whitespace-nowrap hover:text-blue-700 flex items-center gap-1 ${
+                isScrolled ? "text-xs lg:text-sm" : "text-sm lg:text-base"
+              } ${isAboutActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
             >
               About Us <span className={`text-xs transition-transform ${aboutOpen ? "rotate-180" : "rotate-0"}`}>▼</span>
             </button>
@@ -158,7 +173,9 @@ export default function Navbar() {
             <NavLink
               key={item.to}
               to={item.to}
-              className={({ isActive }) => `relative pb-1 text-sm lg:text-base font-medium tracking-wide transition-colors duration-200 whitespace-nowrap hover:text-blue-700 ${isActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
+              className={({ isActive }) => `relative pb-1 font-medium tracking-wide transition-all duration-200 whitespace-nowrap hover:text-blue-700 ${
+                isScrolled ? "text-xs lg:text-sm" : "text-sm lg:text-base"
+              } ${isActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
             >
               {item.label}
             </NavLink>
@@ -175,12 +192,13 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Spacer div */}
-      <div className="h-[96px] lg:h-[112px]"></div>
-
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white px-4 pb-4 pt-3 space-y-1">
+        <div 
+          className={`md:hidden border-t border-gray-200 bg-white px-4 pb-4 pt-3 space-y-1 shadow-md ${
+            isScrolled ? "fixed top-[96px] left-0 right-0 z-40 max-h-[70vh] overflow-y-auto" : "relative"
+          }`}
+        >
           <NavLink
             to="/"
             onClick={closeMobileMenu}
@@ -229,6 +247,15 @@ export default function Navbar() {
           ))}
         </div>
       )}
-    </header>
+
+      {/* Spacer - Only when navbar is fixed */}
+      {isScrolled && (
+        <div 
+          style={{ height: `${mainNavRef.current?.offsetHeight || 0}px` }}
+          className="w-full"
+          aria-hidden="true"
+        />
+      )}
+    </>
   );
 }
