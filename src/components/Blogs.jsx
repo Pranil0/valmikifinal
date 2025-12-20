@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import HeroSection from "../components/HeroSection";
 import blogHeroImg from "../assets/valmikibuilding.png";
-// Blog image
-import valmiki from "../assets/valmikicollegebuilding.jpg";
+
+// Blog images
 import blog1 from "../assets/blog1.jpeg";
 import blog2 from "../assets/blog2.jpeg";
 import blog3 from "../assets/blog3.jpeg";
 import blog4 from "../assets/blog4.jpeg";
 import blog5 from "../assets/blog5.webp";
-import blog6 from "../assets//blog6.jpeg";
+import blog6 from "../assets/blog6.jpeg";
+
 const Blogs = () => {
   // ================= BLOG DATA =================
   const blogs = [
@@ -18,7 +19,6 @@ const Blogs = () => {
       title: "Why Choosing the Right College Matters for Your Future",
       desc: "Your college shapes your academic journey, your skills, and the opportunities you receive.",
       category: "Education",
-      author: "Saraswati Karki",
       date: "10 Dec 2023",
       image: blog1,
     },
@@ -27,7 +27,6 @@ const Blogs = () => {
       title: "Top Study Techniques Every Student Should Know",
       desc: "Effective study strategies like Pomodoro, active recall, and spaced repetition explained.",
       category: "Study Tips",
-      author: "Anisha Shrestha",
       date: "8 Dec 2023",
       image: blog2,
     },
@@ -36,7 +35,6 @@ const Blogs = () => {
       title: "How Technology Is Transforming Modern Education",
       desc: "Digital tools, AI, and e-learning platforms are reshaping the classroom experience.",
       category: "Technology",
-      author: "Krish Rana",
       date: "5 Dec 2023",
       image: blog3,
     },
@@ -45,7 +43,6 @@ const Blogs = () => {
       title: "Soft Skills Every Student Should Master",
       desc: "Communication, teamwork, leadership, and emotional intelligence in education.",
       category: "Career",
-      author: "Manisha Paudel",
       date: "2 Dec 2023",
       image: blog4,
     },
@@ -54,7 +51,6 @@ const Blogs = () => {
       title: "How to Improve Academic Performance in 30 Days",
       desc: "Simple yet powerful habits that significantly boost your grades and learning.",
       category: "Study Tips",
-      author: "Rohan Adhikari",
       date: "28 Nov 2023",
       image: blog5,
     },
@@ -63,7 +59,6 @@ const Blogs = () => {
       title: "Why Continuous Learning Is Important in Today’s World",
       desc: "Learning doesn’t end after college — here's why staying updated is essential.",
       category: "Education",
-      author: "Deepak Subedi",
       date: "22 Nov 2023",
       image: blog6,
     },
@@ -80,53 +75,33 @@ const Blogs = () => {
 
       {/* BLOG SECTION */}
       <section className="max-w-7xl mx-auto px-6 md:px-10 py-16">
-        <h2 className="text-3xl font-bold text-[#0F75BD] mb-10">
-          Latest Blogs
-        </h2>
+        <h2 className="text-3xl font-bold text-[#0F75BD] mb-10">Latest Blogs</h2>
 
-        {/* Blog Grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog) => (
-            <div
+            <Link
               key={blog.id}
-              className="group bg-white rounded-2xl shadow-md overflow-hidden transform transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
+              to={`/blogs/${blog.id}`}
+className="bg-blue-50 rounded-xl overflow-hidden group"
+
             >
               {/* Image */}
-              <div className="overflow-hidden">
+              <div className="w-full overflow-hidden">
                 <img
                   src={blog.image}
                   alt={blog.title}
-                  className="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 
               {/* Blog Info */}
-              <div className="p-5">
-                <span className="inline-block bg-[#E8EBF9] text-[#3856B2] text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                  {blog.category}
-                </span>
-
-                <h3 className="text-lg font-semibold text-gray-900 leading-snug group-hover:text-[#3856B2] transition-colors duration-300">
+              <div className="p-6 flex flex-col h-full">
+                <h3 className="text-xl font-semibold text-gray-900 leading-snug mb-10">
                   {blog.title}
                 </h3>
-
-                <p className="text-sm text-gray-600 mt-2 mb-4">
-                  {blog.desc}
-                </p>
-
-                <div className="flex items-center justify-between text-sm text-gray-500 mt-auto">
-                  <span>👤 {blog.author}</span>
-                  <span>{blog.date}</span>
-                </div>
-
-                <Link
-                  to={`/blogs/${blog.id}`}
-                  className="block text-center w-full mt-4 bg-[#3856B2] text-white text-sm py-2 rounded-md hover:bg-[#2f4aa3] transition duration-300"
-                >
-                  Learn More
-                </Link>
+                <p className="text-sm text-gray-700 mt-auto">{blog.date}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebookF,} from "react-icons/fa";
-
+import HeroSection from "../components/HeroSection";
+import blogHeroImg from "../assets/valmikibuilding.png";
 // Import your images
 import photo1 from "../assets/photo1.webp";
 import photo2 from "../assets/photo2.webp";
@@ -156,32 +157,13 @@ const imageVariants = {
     <>
       {/* ====== HERO SECTION ====== */}
       <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center">
-        <img
-          src={valmikibuilding}
-          alt="Valmiki Shiksha Sadan"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black/70"></div>
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-          {/* Breadcrumb */}
-          <div className="text-white text-xs md:text-sm flex items-center gap-2 mb-3">
-            <Link to="/" className="hover:text-[#FCA61B] transition">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-gray-300">News &amp; Events</span>
-          </div>
-
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-[#FCA61B] via-white to-[#FCA61B] bg-clip-text text-transparent drop-shadow-lg">
-            News &amp; Events
-          </h1>
-
-          <p className="mt-4 text-sm md:text-lg text-gray-100 max-w-2xl md:max-w-3xl">
-            Stay updated with important announcements, student achievements and
-            the vibrant life of Valmiki Shiksha Sadan.
-          </p>
-        </div>
+    
+         <HeroSection
+        image={blogHeroImg}
+        title="  News &amp; Events"
+        subtitle=" Stay updated with important announcements, student achievements and
+            the vibrant life of Valmiki Shiksha Sadan."
+      />
       </section>
 {/* ====== Video Highlights Section ====== */}
 <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-gray-50">
@@ -244,41 +226,6 @@ const imageVariants = {
     </div>
   </div>
 </section>
-
-
-      {/* ====== SEARCH + CATEGORY FILTER ====== */}
-      <section className="py-12 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#0F75BD]">
-            Explore News &amp; Updates
-          </h2>
-          <p className="mt-3 text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
-            Filter news and announcements based on category or search for a
-            specific update by title.
-          </p>
-
-          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4 items-center">
-            <input
-              type="text"
-              placeholder="Search by news title..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="px-4 py-3 rounded-lg border border-gray-300 w-full sm:w-1/2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0F75BD]/60"
-            />
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="px-4 py-3 rounded-lg border border-gray-300 w-full sm:w-1/4 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0F75BD]/60"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </section>
 
       {/* ====== RECENT NEWS / ANNOUNCEMENTS ====== */}
       <NewsList showSearch={true} />

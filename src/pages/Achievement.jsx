@@ -20,7 +20,6 @@ import six from "../assets/topper 2 image.webp";
 import seven from "../assets/topper 3 iamge.webp";
 import eight from "../assets/topper 4 image.webp";
 
-
 import toppersPDF from "../assets/toppers.pdf";
 import { FaDownload } from "react-icons/fa"; // For download icon
 import CTA from "../components/CTA";
@@ -66,9 +65,9 @@ export default function Achievement() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/70 animate-gradientMove pointer-events-none" />
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 space-y-4">
           {/* Breadcrumb */}
-          <nav className="absolute top-10 text-xs md:text-sm text-gray-200">
+          <nav className="text-xs md:text-sm text-gray-200">
             <Link to="/" className="hover:text-white">Home</Link>
             <span className="mx-1 text-gray-300">/</span>
             <span className="text-[#FCA61B] font-medium">Achievements</span>
@@ -86,7 +85,7 @@ export default function Achievement() {
 
           {/* Description */}
           <motion.p
-            className="mt-4 text-sm md:text-lg text-gray-100 max-w-3xl opacity-95"
+            className="mt-2 text-sm md:text-lg text-gray-100 max-w-3xl opacity-95"
             variants={heroTextVariants}
             initial="hidden"
             animate="visible"
@@ -98,7 +97,7 @@ export default function Achievement() {
 
           {/* Stats */}
           <motion.div
-            className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl w-full"
+            className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl w-full"
             variants={heroStatsVariants}
             initial="hidden"
             animate="visible"
@@ -126,20 +125,20 @@ export default function Achievement() {
 
       {/* ====== ACADEMIC ACHIEVEMENTS (TOPPERS) ====== */}
       <Section
-  title="Academic Achievements"
-  subtitle="Our toppers continue to inspire excellence every year."
-  images={[five, six, seven, eight]}
-  pdfFile={toppersPDF}
-/>
+        title="Academic Achievements"
+        subtitle="Our toppers continue to inspire excellence every year."
+        images={[five, six, seven, eight]}
+        pdfFile={toppersPDF}
+      />
 
-<Section
-  title="Co-Curricular Excellence"
-  subtitle="Students excel in sports, arts, debates, and creativity."
-  images={[first, second, third, four]}
-  bg="bg-gray-50"
-/>
-<CTA/>
+      <Section
+        title="Co-Curricular Excellence"
+        subtitle="Students excel in sports, arts, debates, and creativity."
+        images={[first, second, third, four]}
+        bg="bg-gray-50"
+      />
 
+      <CTA />
     </>
   );
 }
@@ -228,8 +227,6 @@ function Section({ title, subtitle, images, bg = "bg-white", pdfFile }) {
           </a>
         </motion.div>
       )}
-   
     </section>
-    
   );
 }

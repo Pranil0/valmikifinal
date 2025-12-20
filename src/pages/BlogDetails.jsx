@@ -282,8 +282,7 @@ const blogs = [
   },
 ];
 
-
-  const blog = blogs.find((b) => b.id === parseInt(id));
+const blog = blogs.find((b) => b.id === parseInt(id));
 
   if (!blog) {
     return (
@@ -293,33 +292,42 @@ const blogs = [
     );
   }
 
+  // ===== RANDOM 3 RELATED BLOGS =====
+  const relatedBlogs = blogs
+    .filter((b) => b.id !== blog.id)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 3);
+
   return (
     <div className="bg-white min-h-screen">
-
-     
-    {/* HERO SECTION */}
+      {/* HERO SECTION */}
       <HeroSection
         image={blogHeroImg}
         title="Our Blogs"
         subtitle="Explore articles, insights, and stories from Valmiki College."
       />
 
-
       {/* BLOG CONTENT */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 py-16">
-        <img src={blog.image} alt={blog.title} className="w-full rounded-2xl shadow-md mb-8" />
+        <img
+          src={blog.image}
+          alt={blog.title}
+          className="w-full rounded-2xl shadow-md mb-8"
+        />
 
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
           <span>👤 {blog.author}</span>
           <span>{blog.date}</span>
         </div>
 
-        <h2 className="text-2xl font-bold text-[#0F75BD] mb-4">{blog.title}</h2>
+        <h2 className="text-2xl font-bold text-[#0F75BD] mb-4">
+          {blog.title}
+        </h2>
 
         <div
           className="text-gray-800 leading-relaxed space-y-4"
           dangerouslySetInnerHTML={{ __html: blog.content }}
-        ></div>
+        />
 
         <div className="mt-10">
           <Link
@@ -328,6 +336,41 @@ const blogs = [
           >
             ← Back to Blogs
           </Link>
+        </div>
+      </section>
+
+      {/* ===== RELATED BLOGS ===== */}
+      <section className="max-w-6xl mx-auto px-6 md:px-10 pb-20">
+        <h3 className="text-2xl font-bold text-[#0F75BD] mb-8">
+          More Blogs You May Like
+        </h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedBlogs.map((item) => (
+            <Link
+              key={item.id}
+              to={`/blogs/${item.id}`}
+              className="group border rounded-xl overflow-hidden hover:shadow-lg transition"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-44 object-cover group-hover:scale-105 transition duration-300"
+              />
+
+              <div className="p-4">
+                <p className="text-xs text-gray-500 mb-1">{item.date}</p>
+
+                <h4 className="font-semibold text-gray-800 group-hover:text-[#0F75BD] transition">
+                  {item.title}
+                </h4>
+
+                <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                  {item.desc}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
     </div>
