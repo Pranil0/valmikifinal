@@ -4,35 +4,25 @@ import MessageBlock from "../components/MessageBlock";
 import principalImg from "../assets/principal.png";
 import banner from "../assets/banner.png";
 import CTA from "../components/CTA";
-
+import blogHeroImg from "../assets/valmikibuilding.png";
+import HeroSection from "../components/HeroSection";
 const Principal = () => {
   return (
     <>
       {/* HERO SECTION — Introduction Page */}
-      <section className="bg-gradient-to-r from-[#E8F3FF] via-white to-[#FFE8E8] py-16 md:py-20">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-      
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight">
-  Welcome to the 
-  <span className="text-[#0F75BD]"> Principal’s Message</span>
-</h1>
+     
+        <HeroSection
+        image={blogHeroImg}
+ title="Welcome to the Principal’s Message "
+  subtitle="  Insights, guidance, and vision from the Principal of Valmiki Shiksha Sadan —
+  dedicated to shaping disciplined, confident, and value-driven learners."
+  breadcrumb={[
+    { label: "Home", link: "/" },
+    { label: "Introduction" }
+  ]}
+/>
 
-<p className="mt-4 text-gray-600 text-sm md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
-  Insights, guidance, and vision from the Principal of Valmiki Shiksha Sadan —
-  dedicated to shaping disciplined, confident, and value-driven learners.
-</p>
 
-      
-          {/* Breadcrumb (optional but professional) */}
-          <nav className="mt-5 text-[12px] md:text-sm font-medium text-gray-500">
-            <NavLink to="/" className="hover:text-[#0F75BD] transition">Home</NavLink>
-            <span className="mx-2">/</span>
-            <span className="text-[#0F75BD] font-semibold">Introduction</span>
-          </nav>
-      
-        </div>
-      </section>
-      
 
       {/* ============= TITLE STRIP ============= */}
       <section className="max-w-6xl mx-auto px-6 md:px-8 mt-12 md:mt-16 mb-8">

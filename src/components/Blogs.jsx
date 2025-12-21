@@ -71,6 +71,10 @@ const Blogs = () => {
         image={blogHeroImg}
         title="Our Blogs"
         subtitle="Explore articles, insights, and stories from Valmiki College."
+        breadcrumb={[
+    { label: "Home", link: "/" },
+    { label: "Blogs" }
+  ]}
       />
 
       {/* BLOG SECTION */}

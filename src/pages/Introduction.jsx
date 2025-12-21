@@ -6,7 +6,8 @@ import banner from "../assets/cover_valmiki.png";
 import officeImg from "../assets/schoolbuilding.webp";
 import CTA from "../components/CTA";
 import ProgramSection from "../components/ProgramSection";
-
+import blogHeroImg from "../assets/valmikibuilding.png";
+import HeroSection from "../components/HeroSection";
 const stats = [
   { value: "1996", label: "Established (2053 B.S.)" },
   { value: "25+", label: "Years of Academic Legacy" },
@@ -28,28 +29,22 @@ const Introduction = () => {
     <>
 
      {/* HERO SECTION — Introduction Page */}
-<section className="bg-gradient-to-r from-[#E8F3FF] via-white to-[#FFE8E8] py-16 md:py-20">
-  <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
 
-    <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight">
-      Welcome to 
-      <span className="text-[#0F75BD]"> Valmiki Shiksha Sadan</span>
-    </h1>
 
-    <p className="mt-4 text-gray-600 text-sm md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
-      A center of academic excellence offering holistic education, strong values, 
-      and dedicated guidance to prepare students for higher studies and real-world success.
-    </p>
+  <HeroSection
+        image={blogHeroImg}
+ title="Introduction"
+  subtitle="Get to know Valmiki College — our vision, values, and commitment to academic excellence."
+  breadcrumb={[
+    { label: "Home", link: "/" },
+    { label: "Introduction" }
+  ]}
+/>
 
-    {/* Breadcrumb (optional but professional) */}
-    <nav className="mt-5 text-[12px] md:text-sm font-medium text-gray-500">
-      <NavLink to="/" className="hover:text-[#0F75BD] transition">Home</NavLink>
-      <span className="mx-2">/</span>
-      <span className="text-[#0F75BD] font-semibold">Introduction</span>
-    </nav>
 
-  </div>
-</section>
+
+     
+
 
 
       {/* ================= ABOUT SECTION ================= */}

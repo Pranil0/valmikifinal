@@ -159,11 +159,15 @@ const imageVariants = {
       <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center">
     
          <HeroSection
-        image={blogHeroImg}
-        title="  News &amp; Events"
-        subtitle=" Stay updated with important announcements, student achievements and
-            the vibrant life of Valmiki Shiksha Sadan."
-      />
+  image={blogHeroImg}
+  title="News & Events"
+  subtitle="Stay updated with important announcements, student achievements, and the vibrant life of Valmiki Shiksha Sadan."
+  breadcrumb={[
+    { label: "Home", link: "/" },
+    { label: "News & Events" }
+  ]}
+/>
+
       </section>
 {/* ====== Video Highlights Section ====== */}
 <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-gray-50">
