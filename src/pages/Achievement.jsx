@@ -82,19 +82,6 @@ export default function Achievement() {
           >
             Achievements
           </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            className="mt-2 text-sm md:text-lg text-gray-100 max-w-3xl opacity-95"
-            variants={heroTextVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.3 }}
-          >
-            Celebrating excellence in academics, co-curricular activities and
-            the inspiring impact of our students and alumni.
-          </motion.p>
-
           {/* Stats */}
           <motion.div
             className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl w-full"
@@ -124,12 +111,13 @@ export default function Achievement() {
       </section>
 
       {/* ====== ACADEMIC ACHIEVEMENTS (TOPPERS) ====== */}
-      <Section
-        title="Academic Achievements"
-        subtitle="Our toppers continue to inspire excellence every year."
-        images={[five, six, seven, eight]}
-        pdfFile={toppersPDF}
-      />
+    <Section
+  title="Academic Achievements"
+  subtitle="Our toppers continue to inspire excellence every year."
+  images={[five, six, seven, eight]}
+  pdfFile="/assets/toppers.pdf"  // Direct path to public folder
+/>
+
 
       <Section
         title="Co-Curricular Excellence"
@@ -217,14 +205,15 @@ function Section({ title, subtitle, images, bg = "bg-white", pdfFile }) {
             </p>
           </div>
 
-          <a
-            href={pdfFile}
-            download="Toppers_Academic_Achievements.pdf"
-            className="inline-flex items-center gap-2 bg-[#FCA61B] text-[#0F75BD] px-6 py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-yellow-500 transition shadow-md hover:shadow-lg"
-          >
-            <FaDownload />
-            Download PDF
-          </a>
+         <a
+  href="/assets/toppers.pdf"  // Correct path to public folder
+  download="Toppers_Academic_Achievements.pdf"
+  className="inline-flex items-center gap-2 bg-[#FCA61B] text-white px-6 py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-yellow-500 transition shadow-md hover:shadow-lg"
+>
+  <FaDownload />
+  Download PDF
+</a>
+
         </motion.div>
       )}
     </section>

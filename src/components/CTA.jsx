@@ -57,11 +57,17 @@ const CTA = () => {
                   className="pl-10 pr-24 py-2 text-black w-full focus:outline-none placeholder-gray-400 text-sm"
                 />
 
-                <button className="absolute right-1 h-8 sm:h-9 px-4 bg-[#007BFF] 
-                                   text-white hover:bg-blue-600 font-semibold text-sm 
-                                   rounded-full flex items-center justify-center whitespace-nowrap">
-                  Subscribe
-                </button>
+                <button className="
+  absolute right-1 h-8 sm:h-9 px-4 
+  bg-[#FCA61B] 
+  text-white font-semibold text-sm 
+  rounded-full flex items-center justify-center whitespace-nowrap
+  transition-colors duration-300
+  hover:bg-[#e59500]
+">
+  Subscribe
+</button>
+
               </div>
 
               <p className="mt-3 text-[11px] text-white text-center leading-relaxed">

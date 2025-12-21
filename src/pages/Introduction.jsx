@@ -32,21 +32,14 @@ const Introduction = () => {
 
 
   <HeroSection
-        image={blogHeroImg}
- title="Introduction"
-  subtitle="Get to know Valmiki College — our vision, values, and commitment to academic excellence."
+  image={blogHeroImg}
+  title="A Message from the Principal"
+  subtitle="Insights, guidance, and vision from the Principal of Valmiki Shiksha Sadan — nurturing disciplined, confident, and value-driven learners for a brighter tomorrow."
   breadcrumb={[
     { label: "Home", link: "/" },
-    { label: "Introduction" }
+    { label: "Principal's Message" }
   ]}
 />
-
-
-
-     
-
-
-
       {/* ================= ABOUT SECTION ================= */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10 py-14 md:py-18 lg:py-20">
         {/* Title + Intro */}

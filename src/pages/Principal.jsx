@@ -11,16 +11,16 @@ const Principal = () => {
     <>
       {/* HERO SECTION — Introduction Page */}
      
-        <HeroSection
-        image={blogHeroImg}
- title="Welcome to the Principal’s Message "
-  subtitle="  Insights, guidance, and vision from the Principal of Valmiki Shiksha Sadan —
-  dedicated to shaping disciplined, confident, and value-driven learners."
+       <HeroSection
+  image={blogHeroImg}
+  title="A Message from the Principal"
+  subtitle="Insights, guidance, and vision from the Principal of Valmiki Shiksha Sadan — nurturing disciplined, confident, and value-driven learners for a brighter tomorrow."
   breadcrumb={[
     { label: "Home", link: "/" },
-    { label: "Introduction" }
+    { label: "Principal's Message" }
   ]}
 />
+
 
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BookOpen, Atom } from "lucide-react";
-
+import  { useRef } from "react";
 const ProgramsSection = () => {
   return (
     <section className="relative bg-white py-16 md:py-20 px-6 md:px-12 lg:px-20">
@@ -44,7 +44,7 @@ const ProgramsSection = () => {
             <Atom className="w-7 h-7" />
           </div>
           <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white transition-colors duration-500">
-            +2 Science
+         +2 Programs
           </h3>
           <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base transition-colors duration-500">
             Designed for students aiming to pursue careers in medicine,

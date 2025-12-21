@@ -165,23 +165,20 @@ const Inquiry = () => {
       Grade XI Inquiry & Admission
     </h1>
 
-    {/* Subtitle */}
-    <motion.p
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 1 }}
-      className="text-sm md:text-lg max-w-2xl text-gray-100"
-    >
-      Begin your +2 journey at Valmiki Shiksha Sadan with our Science and
-      Management streams, guided by experienced educators and a supportive
-      learning environment.
-    </motion.p>
-
+    
     {/* Download Prospectus Button */}
-    <a
+    {/* Download Prospectus Button */}
+<a
   href={prospectusPDF}
-  download="GradeXI_Prospectus.pdf" // optional, sets the downloaded file name
-  className="mt-6 inline-flex items-center gap-2 bg-[#FCA61B] text-[#0F75BD] px-6 py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-yellow-500 transition shadow-md hover:shadow-lg"
+  download="GradeXI_Prospectus.pdf"
+  className="
+    mt-6 inline-flex items-center gap-2 
+    bg-[#FCA61B] text-white 
+    px-6 py-3 rounded-lg 
+    font-semibold text-sm md:text-base
+    hover:bg-[#e59500] transition-colors duration-300
+    shadow-md hover:shadow-lg
+  "
 >
   <FaDownload />
   Download Grade XI Prospectus
@@ -273,7 +270,7 @@ const Inquiry = () => {
 
             <button
               type="submit"
-              className="md:col-span-2 bg-[#FCA61B] text-[#0F75BD] font-semibold py-3 rounded-lg text-sm md:text-base hover:bg-yellow-500 transition shadow-md hover:shadow-lg"
+              className="md:col-span-2 bg-[#FCA61B] text-white font-semibold py-3 rounded-lg text-sm md:text-base hover:bg-yellow-500 transition shadow-md hover:shadow-lg"
             >
               Submit Inquiry
             </button>

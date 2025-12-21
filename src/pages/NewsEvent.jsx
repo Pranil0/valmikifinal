@@ -28,6 +28,7 @@ import orientationclass11 from "../assets/orientationclass11.webp";
 import itfest from "../assets/itfest.webp";
 import sciencefair from "../assets/sciencefair.webp";
 import sportsmeet from "../assets/sportsmeet.webp";
+import CTA from "../components/CTA";
 
 
 const categories = ["All", "Academic", "Co-Curricular", "Alumni", "Announcements"];
@@ -345,28 +346,7 @@ const imageVariants = {
 </section>
 
       {/* ====== NEWSLETTER / CTA ====== */}
-      <section className="relative bg-white py-16 md:py-20 px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl mx-auto bg-[#0F75BD] text-white rounded-3xl p-8 md:p-10 lg:p-12 shadow-xl">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center">
-            Subscribe for Updates
-          </h2>
-          <p className="mt-4 text-sm md:text-base text-center max-w-2xl mx-auto">
-            Receive the latest news, event reminders and important notices from
-            Valmiki Shiksha Sadan directly in your inbox.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center mt-8 gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              className="px-4 py-3 rounded-lg text-white flex-grow text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-white/70"
-            />
-            <button className="px-6 py-3 bg-[#FCA61B] text-[#0F75BD] font-semibold rounded-lg text-sm md:text-base hover:bg-yellow-500 transition shadow-md hover:shadow-lg">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </section>
+      <CTA/>
     </>
   );
 };

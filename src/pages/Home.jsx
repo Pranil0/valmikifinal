@@ -20,7 +20,7 @@ import graduation from "../assets/graduation.png";
 import vector from "../assets/vector.png";
 import aa from "../assets/aa.png";
 import valmikicollegebuilding from "../assets/valmikicollegebuilding.jpg";
-
+import  { useRef } from "react";
 import bell from "../assets/bell.png";
 import tt from "../assets/tt.png";
 import volunteer from "../assets/volunteer.png";
@@ -34,6 +34,7 @@ import landinghero1 from "../assets/landinghero1.mp4";
 import WellBeingSection from "../components/WellBeingSection";
 import NewsList from "../components/NewsList";
 import CTA from "../components/CTA";
+import ProgramsSection from "../components/ProgramSection";
 
 // ✅ Counter Box Component
 const CounterBox = ({ end, label, suffix = "+" }) => {
@@ -51,6 +52,12 @@ const CounterBox = ({ end, label, suffix = "+" }) => {
 
 const Home = () => {
 
+  const programsRef = useRef(null);
+
+  const scrollToPrograms = () => {
+    programsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  
   const containerVariants = {
     hidden: {},
     visible: {
@@ -109,7 +116,7 @@ const Home = () => {
         </motion.h2>
 
         <motion.p
-          className="mt-4 text-sm md:text-base lg:text-lg text-[#FCA61B] leading-relaxed drop-shadow-md"
+          className="mt-4 text-sm md:text-base lg:text-lg text-white leading-relaxed drop-shadow-md"
           variants={textVariants}
         >
           Since 1996, empowering students from Play Group to +2 with academic
@@ -121,11 +128,12 @@ const Home = () => {
           variants={buttonVariants}
         >
           <button
-            onClick={() => (window.location.href = "/inquiry")}
-            className="bg-[#0F75BD] hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm md:text-base font-medium shadow-lg transition"
-          >
-            Explore Our Streams
-          </button>
+  onClick={scrollToPrograms}
+  className="bg-[#0F75BD] hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm md:text-base font-medium shadow-lg transition"
+>
+  Explore Our Streams
+</button>
+
 
           <button
             onClick={() => (window.location.href = "/contact")}
@@ -298,64 +306,11 @@ const Home = () => {
       </section>
 
       {/* ====== OUR PROGRAMS / STREAMS SECTION ====== */}
-      <section className="relative bg-white py-16 md:py-20 px-6 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0F75BD]">
-            Our Programs
-          </h2>
-          <p className="mt-4 text-gray-600 max-w-3xl mx-auto text-sm md:text-base">
-            At Valmiki Shiksha Sadan, we offer a range of programs designed to
-            meet the academic needs of students from early years to higher
-            secondary education.
-          </p>
-        </div>
+   {/* ====== OUR PROGRAMS / STREAMS SECTION ====== */}
+<div ref={programsRef}>
+  <ProgramsSection />
+</div>
 
-        <div className="relative mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Early Childhood - Grade 10 */}
-          <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
-            <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
-              <BookOpen className="w-7 h-7" />
-            </div>
-            <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
-              Early Childhood – Grade 10
-            </h3>
-            <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
-              A solid foundation with modern teaching methods, nurturing
-              creativity, discipline, and holistic development from the early
-              years up to secondary level.
-            </p>
-            <NavLink
-        to="/grade10"
-        className="mt-5 inline-block bg-[#FCA61B] text-white px-5 py-2 rounded-full text-xs md:text-sm font-medium hover:bg-yellow-600 transition"
-      >
-        Learn More
-      </NavLink>
-          </div>
-
-          {/* +2 Science */}
-          <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
-            <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
-              <Atom className="w-7 h-7" />
-            </div>
-            <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
-              +2 Science
-            </h3>
-            <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
-              Designed for students aiming to pursue careers in medicine,
-              engineering, IT, and applied sciences, supported by experienced
-              faculty and modern labs.
-            </p>
-            <NavLink
-        to="/plus2"
-        className="mt-5 inline-block bg-[#FCA61B] text-white px-5 py-2 rounded-full text-xs md:text-sm font-medium hover:bg-yellow-600 transition"
-      >
-        Learn More
-      </NavLink>
-          </div>
-
-       
-        </div>
-      </section>
 
   {/* ====== WELL-BALANCED WELL-BEING SECTION ====== */}
 <section className="relative bg-gray-50 py-16 md:py-20">
@@ -457,5 +412,4 @@ const Home = () => {
     </>
   );
 };
-
 export default Home;

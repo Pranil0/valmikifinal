@@ -105,46 +105,46 @@ export default function Navbar() {
       </div>
 
       {/* Main Navbar - Becomes sticky/fixed when scrolled */}
-     <div
-  ref={mainNavRef}
-  className={`bg-white flex items-center justify-between w-full shadow-md transition-all duration-300 ${
-    isScrolled 
-      ? "fixed top-0 left-0 right-0 z-50 shadow-lg py-1.5 lg:py-2 px-3 md:px-4" 
-      : "relative py-2.5 lg:py-3 px-3 md:px-4"
-  }`}
->
-  <NavLink to="/" className="flex items-center md:ml-16">
-    <div 
-      className={`bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-105 cursor-pointer ${
-        isScrolled ? "w-[50px] h-[50px]" : "w-[70px] h-[70px]"
-      }`}
-    >
-      <img src={valmikilogo} alt="Logo" className="w-full h-full p-1.5" />
-    </div>
-    <div className="ml-2 md:ml-3">
-      <h1 className={`font-extrabold tracking-wide bg-gradient-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent transition-all duration-300 ${
-        isScrolled ? "text-sm md:text-lg" : "text-base md:text-xl"
-      }`}>
-        VALMIKI SHIKSHA SADAN
-      </h1>
-      <p className={`text-gray-500 tracking-[0.15em] uppercase mt-0.5 transition-all duration-300 ${
-        isScrolled ? "text-[7px] md:text-[9px]" : "text-[9px] md:text-[11px]"
-      }`}>
-        Secondary School • Bharatpur
-      </p>
-    </div>
-  </NavLink>
+      <div
+        ref={mainNavRef}
+        className={`bg-white flex items-center justify-between w-full shadow-md transition-all duration-300 ${
+          isScrolled 
+            ? "fixed top-0 left-0 right-0 z-50 shadow-lg py-2 lg:py-3 px-4 md:px-6" 
+            : "relative py-3 lg:py-5 px-4 md:px-6"
+        }`}
+      >
+        <NavLink to="/" className="flex items-center md:ml-20">
+          <div 
+            className={`bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden transition-all duration-300 hover:scale-105 cursor-pointer ${
+              isScrolled ? "w-[60px] h-[60px]" : "w-[80px] h-[80px]"
+            }`}
+          >
+            <img src={valmikilogo} alt="Logo" className="w-full h-full p-2" />
+          </div>
+          <div className="ml-3 md:ml-4">
+            <h1 className={`font-extrabold tracking-wide bg-gradient-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent transition-all duration-300 ${
+              isScrolled ? "text-sm md:text-xl" : "text-base md:text-2xl"
+            }`}>
+              VALMIKI SHIKSHA SADAN
+            </h1>
+            <p className={`text-gray-500 tracking-[0.18em] uppercase mt-1 transition-all duration-300 ${
+              isScrolled ? "text-[8px] md:text-[10px]" : "text-[10px] md:text-xs"
+            }`}>
+              Secondary School • Bharatpur
+            </p>
+          </div>
+        </NavLink>
 
-  {/* Desktop Links */}
-  <nav className="hidden md:flex items-center space-x-4 lg:space-x-6 text-gray-700 mr-2 lg:mr-6 relative">
-    <NavLink
-      to="/"
-      className={({ isActive }) => `relative pb-0.5 font-medium tracking-wide transition-all duration-200 whitespace-nowrap hover:text-blue-700 ${
-        isScrolled ? "text-xs lg:text-sm" : "text-sm lg:text-base"
-      } ${isActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
-    >
-      Home
-    </NavLink>
+        {/* Desktop Links */}
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 text-gray-700 mr-4 lg:mr-10 relative">
+          <NavLink
+            to="/"
+            className={({ isActive }) => `relative pb-1 font-medium tracking-wide transition-all duration-200 whitespace-nowrap hover:text-blue-700 ${
+              isScrolled ? "text-xs lg:text-sm" : "text-sm lg:text-base"
+            } ${isActive ? "text-blue-700 after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-blue-500 after:scale-100" : "text-gray-700"}`}
+          >
+            Home
+          </NavLink>
 
           {/* About Dropdown */}
           <div ref={aboutRef} className="relative">
