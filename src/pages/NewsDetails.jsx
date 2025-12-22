@@ -30,10 +30,7 @@ import {
 
 import photo4 from "../assets/photo4.webp";
 
-const NewsDetails = () => {
-  const { id } = useParams();
 
-;
 
 
  const newsList = [
@@ -250,7 +247,18 @@ const NewsDetails = () => {
 ];
 
 
-  const news = newsList.find((item) => item.id === parseInt(id));
+const NewsDetails = () => {
+  const { id } = useParams();
+
+  const news = newsList.find((item) => item.id === Number(id));
+
+  if (!news) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500">
+        News not found 😢
+      </div>
+    );
+  }
 
   // ========== ERROR IF NEWS NOT FOUND ==========
   if (!news) {
@@ -270,7 +278,6 @@ const NewsDetails = () => {
         title="News Details"
         subtitle="Explore full details about this news update from Valmiki College."
       />
-
       {/* NEWS CONTENT */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 py-16">
 
@@ -306,6 +313,45 @@ const NewsDetails = () => {
           </Link>
         </div>
       </section>
+
+
+
+      {/* RELATED NEWS */}
+      <section className="bg-gray-50 py-16 px-6">
+        <h3 className="text-2xl font-bold text-[#0F75BD] text-center mb-10">
+          Related News & Events
+        </h3>
+
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {relatedNews.map((item) => (
+            <Link
+              key={item.id}
+              to={`/news/${item.id}`}
+              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-48 object-cover"
+              />
+
+              <div className="p-4 flex flex-col flex-grow">
+                <h4 className="font-semibold mb-2 line-clamp-2">
+                  {item.title}
+                </h4>
+                <p className="text-sm text-gray-600 line-clamp-3 mb-4">
+                  {item.desc}
+                </p>
+
+                <span className="mt-auto text-xs text-gray-400">
+                  {item.date}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+      
     </div>
   );
 };
