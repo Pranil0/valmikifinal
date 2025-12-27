@@ -8,6 +8,14 @@ import CTA from "../components/CTA";
 import ProgramSection from "../components/ProgramSection";
 import blogHeroImg from "../assets/valmikibuilding.png";
 import HeroSection from "../components/HeroSection";
+import Introductionhero from "../assets/Introductionhero.mp4";
+import aa from "../assets/aa.png";
+import vector from "../assets/vector.png";
+import {
+  Target,
+  Flag,
+} from "lucide-react";
+
 const stats = [
   { value: "1996", label: "Established (2053 B.S.)" },
   { value: "25+", label: "Years of Academic Legacy" },
@@ -31,15 +39,18 @@ const Introduction = () => {
      {/* HERO SECTION — Introduction Page */}
 
 
-  <HeroSection
-  image={blogHeroImg}
-  title="A Message from the Principal"
-  subtitle="Insights, guidance, and vision from the Principal of Valmiki Shiksha Sadan — nurturing disciplined, confident, and value-driven learners for a brighter tomorrow."
+<HeroSection
+  video={Introductionhero}
+  title="Introduction"
+    subtitle="Learn more about our college, vision, and values." // added subtitle
   breadcrumb={[
     { label: "Home", link: "/" },
-    { label: "Principal's Message" }
+    { label: "Introduction" },
   ]}
+  size="large"
 />
+
+
       {/* ================= ABOUT SECTION ================= */}
       <section className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10 py-14 md:py-18 lg:py-20">
         {/* Title + Intro */}
@@ -144,7 +155,64 @@ const Introduction = () => {
 
   </div>
 </section>
+{/* ====== VISION & MISSION SECTION ====== */}
+<section className="relative bg-white py-16 md:py-20 px-6 md:px-12 lg:px-20">
+  <div className="max-w-7xl mx-auto text-center">
+    <h2 className="text-3xl md:text-4xl font-bold text-[#0F75BD]">
+      Our Vision & Mission
+    </h2>
+    <p className="mt-4 text-gray-600 max-w-3xl mx-auto text-sm md:text-base">
+      Founded in 1996 (2053 B.S.), Valmiki Shiksha Sadan (VSS) has grown
+      into one of Chitwan’s most trusted institutions for quality
+      education. With over two decades of consistent results and
+      innovation, VSS is recognized as a hub for academic excellence and
+      holistic development.
+    </p>
+  </div>
 
+  <div className="relative mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+    {/* Vision Card */}
+    <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
+      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
+        <Target className="w-7 h-7" />
+      </div>
+      <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
+        Vision
+      </h3>
+      <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
+        To be the first choice for guardians and students seeking academic
+        excellence and all-round personal growth.
+      </p>
+    </div>
+
+    {/* Mission Card */}
+    <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
+      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
+        <Flag className="w-7 h-7" />
+      </div>
+      <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
+        Mission
+      </h3>
+      <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
+        To nurture well-rounded learners through experienced educators,
+        modern facilities, and a value-driven ethos that prepares students
+        for future challenges.
+      </p>
+    </div>
+  </div>
+
+  {/* Decorative Images */}
+  <img
+    src={aa}
+    alt="A+ logo"
+    className="absolute bottom-8 left-6 w-16 opacity-80"
+  />
+  <img
+    src={vector}
+    alt="Vector design"
+    className="absolute top-1/2 right-4 w-24 opacity-80"
+  />
+</section>
 
 <ProgramSection/>
 

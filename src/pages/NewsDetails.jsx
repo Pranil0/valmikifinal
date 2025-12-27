@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import HeroSection from "../components/HeroSection";
-
+import { FaFacebookF } from "react-icons/fa";
 // Your NEW hero image
 import valmikiHero from "../assets/valmikibuilding.png";
 import valmikibuilding from "../assets/valmikibuilding.png";
@@ -30,6 +30,10 @@ import {
 
 import photo4 from "../assets/photo4.webp";
 
+const NewsDetails = () => {
+  const { id } = useParams();
+
+;
 
 
 
@@ -247,18 +251,7 @@ import photo4 from "../assets/photo4.webp";
 ];
 
 
-const NewsDetails = () => {
-  const { id } = useParams();
-
-  const news = newsList.find((item) => item.id === Number(id));
-
-  if (!news) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-gray-500">
-        News not found 😢
-      </div>
-    );
-  }
+  const news = newsList.find((item) => item.id === parseInt(id));
 
   // ========== ERROR IF NEWS NOT FOUND ==========
   if (!news) {
@@ -268,16 +261,20 @@ const NewsDetails = () => {
       </div>
     );
   }
+const relatedNews = newsList.filter((item) => item.id !== news.id);
 
   return (
+    
     <div className="bg-white min-h-screen">
 
       {/* HERO SECTION */}
       <HeroSection
-        image={valmikiHero}   // <-- now using your college building image
+        image={valmikiHero}   
         title="News Details"
         subtitle="Explore full details about this news update from Valmiki College."
+        size="small"
       />
+
       {/* NEWS CONTENT */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 py-16">
 
@@ -313,46 +310,75 @@ const NewsDetails = () => {
           </Link>
         </div>
       </section>
-
-
-
-      {/* RELATED NEWS */}
-      <section className="bg-gray-50 py-16 px-6">
-        <h3 className="text-2xl font-bold text-[#0F75BD] text-center mb-10">
-          Related News & Events
-        </h3>
-
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {relatedNews.map((item) => (
-            <Link
-              key={item.id}
-              to={`/news/${item.id}`}
-              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-48 object-cover"
-              />
-
-              <div className="p-4 flex flex-col flex-grow">
-                <h4 className="font-semibold mb-2 line-clamp-2">
-                  {item.title}
-                </h4>
-                <p className="text-sm text-gray-600 line-clamp-3 mb-4">
-                  {item.desc}
-                </p>
-
-                <span className="mt-auto text-xs text-gray-400">
-                  {item.date}
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-      
+  {relatedNews.length > 0 && (
+  <section className="mt-16 py-16 bg-gray-50">
+    <div className="max-w-7xl mx-auto text-center mb-8">
+      <h3 className="text-2xl md:text-3xl font-bold text-[#0F75BD]">
+        Related News
+      </h3>
+      <p className="mt-2 text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
+        Explore other updates and announcements from Valmiki College.
+      </p>
     </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      {relatedNews.slice(0, 4).map((item) => (
+        <div
+          key={item.id}
+          className="rounded-2xl overflow-hidden shadow-md group hover:shadow-xl transition duration-300 bg-white flex flex-col"
+        >
+          <img
+            src={item.image}
+            alt={item.title}
+            className="w-full h-44 md:h-48 object-cover transform group-hover:scale-105 transition duration-500"
+          />
+
+          <div className="p-4 flex flex-col flex-grow">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-wide text-[#0F75BD] mb-1">
+              {item.category || "News"}
+            </span>
+
+            <h4 className="text-sm md:text-base font-semibold mb-2 text-gray-900 line-clamp-2">
+              {item.title}
+            </h4>
+
+            <p className="text-xs md:text-sm text-gray-600 mb-3 line-clamp-3">
+              {item.desc}
+            </p>
+
+            <span className="text-[11px] text-gray-400 mb-3">
+              Date: {new Date(item.date).toLocaleDateString()}
+            </span>
+
+            <div className="mt-auto pt-2 border-t border-gray-100 flex items-center justify-between">
+              <a
+                href="https://www.facebook.com/vsshssplustwo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 text-sm"
+              >
+                <FaFacebookF />
+              </a>
+
+              <Link
+                to={`/news/${item.id}`}
+                className="bg-[#0F75BD] text-white text-xs md:text-sm px-4 py-2 rounded-md hover:bg-[#0d63a5] transition"
+              >
+                Read More →
+              </Link>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
+    
+
+
+    </div>
+    
   );
 };
 

@@ -157,8 +157,7 @@ const imageVariants = {
   return (
     <>
       {/* ====== HERO SECTION ====== */}
-      <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center">
-    
+      
          <HeroSection
   image={blogHeroImg}
   title="News & Events"
@@ -167,9 +166,9 @@ const imageVariants = {
     { label: "Home", link: "/" },
     { label: "News & Events" }
   ]}
+   size="small"
 />
 
-      </section>
 {/* ====== Video Highlights Section ====== */}
 <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-gray-50">
   <div className="max-w-7xl mx-auto text-center">

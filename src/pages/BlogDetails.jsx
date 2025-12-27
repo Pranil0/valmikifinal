@@ -305,7 +305,7 @@ const blog = blogs.find((b) => b.id === parseInt(id));
         image={blogHeroImg}
         title="Our Blogs"
         subtitle="Explore articles, insights, and stories from Valmiki College."
-      />
+      size="small" />
 
       {/* BLOG CONTENT */}
       <section className="max-w-5xl mx-auto px-6 md:px-10 py-16">

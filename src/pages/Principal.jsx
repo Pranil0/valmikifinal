@@ -19,6 +19,7 @@ const Principal = () => {
     { label: "Home", link: "/" },
     { label: "Principal's Message" }
   ]}
+  size="small"
 />
 
 
@@ -28,7 +29,7 @@ const Principal = () => {
       <section className="max-w-6xl mx-auto px-6 md:px-8 mt-12 md:mt-16 mb-8">
         <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold">
           <span className="text-[#0F75BD]">Message from the</span>{" "}
-          <span className="text-[#CC0033]">Principal</span>
+          <span className="text-[#0F75BD]">Principal</span>
         </h2>
         <p className="mt-3 text-center text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
           Guiding students with purpose, discipline, and care towards a brighter
