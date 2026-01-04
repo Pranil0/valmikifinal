@@ -20,7 +20,7 @@ import six from "../assets/topper 2 image.webp";
 import seven from "../assets/topper 3 iamge.webp";
 import eight from "../assets/topper 4 image.webp";
 
-import toppersPDF from "../assets/toppers.pdf";
+
 import { FaDownload } from "react-icons/fa"; // For download icon
 import CTA from "../components/CTA";
 

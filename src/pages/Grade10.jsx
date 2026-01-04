@@ -166,7 +166,7 @@ const Grade1to10 = () => {
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <h2 className="text-center text-3xl md:text-4xl font-bold mb-10">
           <span className="text-[#0F75BD]">Message from the</span>{" "}
-          <span className="text-[#CC0033]">Vice Principal</span>
+          <span className="text-[#0F75BD]">Vice Principal</span>
         </h2>
 
        <MessageBlock

@@ -130,7 +130,7 @@ const Plus2 = () => {
       <section className="max-w-6xl mx-auto px-6 md:px-8 mt-12 md:mt-16 mb-8">
         <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold">
           <span className="text-[#0F75BD]">Message from the</span>{" "}
-          <span className="text-[#CC0033]">Coordinator</span>
+          <span className="text-[#0F75BD]">Coordinator</span>
         </h2>
         <p className="mt-3 text-center text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
           Supporting +2 students in Science, Management, and Hotel Management streams to excel academically and personally.
