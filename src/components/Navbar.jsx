@@ -17,7 +17,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [spacerHeight, setSpacerHeight] = useState(0);
   const location = useLocation();
 
   const aboutRef = useRef(null);
@@ -48,24 +47,6 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Calculate spacer height
-  useEffect(() => {
-    const calculateSpacerHeight = () => {
-      const topBarHeight = topBarRef.current?.offsetHeight || 0;
-      const mainNavHeight = mainNavRef.current?.offsetHeight || 0;
-      setSpacerHeight(topBarHeight + mainNavHeight);
-    };
-
-    calculateSpacerHeight();
-    window.addEventListener("resize", calculateSpacerHeight);
-    const timer = setTimeout(calculateSpacerHeight, 100);
-
-    return () => {
-      window.removeEventListener("resize", calculateSpacerHeight);
-      clearTimeout(timer);
-    };
-  }, [mobileOpen, isScrolled]);
 
   // Handle scroll - simple threshold based
   useEffect(() => {
@@ -196,8 +177,9 @@ export default function Navbar() {
       {mobileOpen && (
         <div 
           className={`md:hidden border-t border-gray-200 bg-white px-4 pb-4 pt-3 space-y-1 shadow-md ${
-            isScrolled ? "fixed top-[96px] left-0 right-0 z-40 max-h-[70vh] overflow-y-auto" : "relative"
+            isScrolled ? "fixed left-0 right-0 z-40 max-h-[calc(100vh-80px)] overflow-y-auto" : "relative"
           }`}
+          style={isScrolled ? { top: `${mainNavRef.current?.offsetHeight || 0}px` } : {}}
         >
           <NavLink
             to="/"
