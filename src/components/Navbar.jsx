@@ -36,6 +36,7 @@ export default function Navbar() {
   useEffect(() => {
     setAboutOpen(false);
     setMobileAboutOpen(false);
+    closeMobileMenu();
   }, [location.pathname]);
 
   // Close dropdowns on outside click
@@ -62,12 +63,33 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open and navbar is fixed
+  useEffect(() => {
+    if (mobileOpen && isScrolled) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    }
+  }, [mobileOpen, isScrolled]);
+
   return (
     <>
       {/* Top Bar - Static/Relative positioning, not fixed */}
       <div
         ref={topBarRef}
-        className="w-full bg-blue-700 text-white text-xs md:text-sm py-2 px-4 md:px-6 flex items-center justify-between"
+        className={`w-full bg-blue-700 text-white text-xs md:text-sm py-2 px-4 md:px-6 flex items-center justify-between ${
+          isScrolled ? "hidden" : ""
+        }`}
       >
         <div className="flex items-center space-x-3">
           <a href="https://www.facebook.com/vsshssplustwo" target="_blank" rel="noopener noreferrer" className="hover:opacity-80">
@@ -173,13 +195,27 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile Menu Overlay (for when scrolled) */}
+      {mobileOpen && isScrolled && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          onClick={closeMobileMenu}
+        />
+      )}
+
       {/* Mobile Menu */}
       {mobileOpen && (
         <div 
-          className={`md:hidden border-t border-gray-200 bg-white px-4 pb-4 pt-3 space-y-1 shadow-md ${
-            isScrolled ? "fixed left-0 right-0 z-40 max-h-[calc(100vh-80px)] overflow-y-auto" : "relative"
+          className={`md:hidden bg-white px-4 pb-4 pt-3 space-y-1 shadow-md ${
+            isScrolled 
+              ? "fixed left-0 right-0 z-40 border-t border-gray-200 overflow-y-auto" 
+              : "relative border-t border-gray-200"
           }`}
-          style={isScrolled ? { top: `${mainNavRef.current?.offsetHeight || 0}px` } : {}}
+          style={isScrolled ? { 
+            top: mainNavRef.current?.offsetHeight || 0,
+            maxHeight: `calc(100vh - ${mainNavRef.current?.offsetHeight || 0}px)`,
+            WebkitOverflowScrolling: 'touch'
+          } : {}}
         >
           <NavLink
             to="/"
@@ -231,7 +267,7 @@ export default function Navbar() {
       )}
 
       {/* Spacer - Only when navbar is fixed */}
-      {isScrolled && (
+      {isScrolled && !mobileOpen && (
         <div 
           style={{ height: `${mainNavRef.current?.offsetHeight || 0}px` }}
           className="w-full"
