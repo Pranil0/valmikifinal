@@ -11,7 +11,7 @@ import {
   FaBookOpen,
 } from "react-icons/fa";
 import MessageBlock from "../components/MessageBlock";
-import principalImg from "../assets/principal.png";
+import principalImg from "../assets/CoordinatorImg.webp";
 import CTA from "../components/CTA";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
@@ -139,8 +139,8 @@ const Plus2 = () => {
 
      <MessageBlock
   img={principalImg}
-  name="Ram Thapa"
-  designation="Coordinator"
+  name="Bishnu Dhakal"
+  designation=" +2 Coordinator"
   institute="Valmiki Shiksha Sadan"
   message={
     <>

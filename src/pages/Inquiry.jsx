@@ -167,7 +167,6 @@ const Inquiry = () => {
 
     
     {/* Download Prospectus Button */}
-    {/* Download Prospectus Button */}
 <a
   href={prospectusPDF}
   download="GradeXI_Prospectus.pdf"

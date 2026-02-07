@@ -8,7 +8,7 @@ import {
   FaLanguage,
 } from "react-icons/fa";
 import MessageBlock from "../components/MessageBlock";
-import principalImg from "../assets/principal.png";
+import principalImg from "../assets/Viceprincipalimg.webp";
 import CTA from "../components/CTA";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
@@ -171,7 +171,7 @@ const Grade1to10 = () => {
 
        <MessageBlock
   img={principalImg}
-  name="Sita Sharma"
+  name="Prakash subedi"
   designation="Vice Principal"
   institute="Valmiki Shiksha Sadan"
   message={

@@ -15,6 +15,7 @@ import {
   Target,
   Flag,
 } from "lucide-react";
+import VisionMissionSection from "../components/VisionMissionSection";
 
 const stats = [
   { value: "1996", label: "Established (2053 B.S.)" },
@@ -156,64 +157,22 @@ const Introduction = () => {
   </div>
 </section>
 {/* ====== VISION & MISSION SECTION ====== */}
-<section className="relative bg-white py-16 md:py-20 px-6 md:px-12 lg:px-20">
-  <div className="max-w-7xl mx-auto text-center">
-    <h2 className="text-3xl md:text-4xl font-bold text-[#0F75BD]">
-      Our Vision & Mission
-    </h2>
-    <p className="mt-4 text-gray-600 max-w-3xl mx-auto text-sm md:text-base">
-      Founded in 1996 (2053 B.S.), Valmiki Shiksha Sadan (VSS) has grown
-      into one of Chitwan’s most trusted institutions for quality
-      education. With over two decades of consistent results and
-      innovation, VSS is recognized as a hub for academic excellence and
-      holistic development.
-    </p>
-  </div>
 
-  <div className="relative mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-    {/* Vision Card */}
-    <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
-      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
-        <Target className="w-7 h-7" />
-      </div>
-      <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
-        Vision
-      </h3>
-      <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
-        To be the first choice for guardians and students seeking academic
-        excellence and all-round personal growth.
-      </p>
-    </div>
+<VisionMissionSection
+  description="Founded in 1996 (2053 B.S.), Valmiki Shiksha Sadan has grown into one of Chitwan’s most trusted institutions."
+  vision={{
+    title: "Vision",
+    text: "To be the first choice for guardians and students seeking academic excellence and all-round personal growth.",
+    icon: <Target className="w-7 h-7" />,
+  }}
+  mission={{
+    title: "Mission",
+    text: "To nurture well-rounded learners through experienced educators, modern facilities, and value-driven education.",
+    icon: <Flag className="w-7 h-7" />,
+  }}
+/>
 
-    {/* Mission Card */}
-    <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
-      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
-        <Flag className="w-7 h-7" />
-      </div>
-      <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
-        Mission
-      </h3>
-      <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
-        To nurture well-rounded learners through experienced educators,
-        modern facilities, and a value-driven ethos that prepares students
-        for future challenges.
-      </p>
-    </div>
-  </div>
-
-  {/* Decorative Images */}
-  <img
-    src={aa}
-    alt="A+ logo"
-    className="absolute bottom-8 left-6 w-16 opacity-80"
-  />
-  <img
-    src={vector}
-    alt="Vector design"
-    className="absolute top-1/2 right-4 w-24 opacity-80"
-  />
-</section>
-
+{/* ====== PROGRAM SECTION ====== */}
 <ProgramSection/>
 
       <hr className="border-t border-gray-200 mx-6 md:mx-10" />

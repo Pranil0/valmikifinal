@@ -32,6 +32,8 @@ import forth from "../assets/forth.png";
 import cloud from "../assets/cloud.png";
 import landinghero1 from "../assets/landinghero1.mp4";
 import WellBeingSection from "../components/WellBeingSection";
+import VisionMissionSection from "../components/VisionMissionSection";
+
 import NewsList from "../components/NewsList";
 import CTA from "../components/CTA";
 import ProgramsSection from "../components/ProgramSection";
@@ -76,7 +78,24 @@ const Home = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
+const titleVariant = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0 },
+};
 
+const listContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const listItem = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0 },
+};
   return (
     <>
 <section className="relative min-h-[80vh] flex items-center justify-center px-6 overflow-hidden">
@@ -225,63 +244,21 @@ const Home = () => {
       </section>
 
 {/* ====== VISION & MISSION SECTION ====== */}
-<section className="relative bg-white py-16 md:py-20 px-6 md:px-12 lg:px-20">
-  <div className="max-w-7xl mx-auto text-center">
-    <h2 className="text-3xl md:text-4xl font-bold text-[#0F75BD]">
-      Our Vision & Mission
-    </h2>
-    <p className="mt-4 text-gray-600 max-w-3xl mx-auto text-sm md:text-base">
-      Founded in 1996 (2053 B.S.), Valmiki Shiksha Sadan (VSS) has grown
-      into one of Chitwan’s most trusted institutions for quality
-      education. With over two decades of consistent results and
-      innovation, VSS is recognized as a hub for academic excellence and
-      holistic development.
-    </p>
-  </div>
+<VisionMissionSection
+  description="Founded in 1996 (2053 B.S.), Valmiki Shiksha Sadan has grown into one of Chitwan’s most trusted institutions."
+  vision={{
+    title: "Vision",
+    text: "To be the first choice for guardians and students seeking academic excellence and all-round personal growth.",
+    icon: <Target className="w-7 h-7" />,
+  }}
+  mission={{
+    title: "Mission",
+    text: "To nurture well-rounded learners through experienced educators, modern facilities, and value-driven education.",
+    icon: <Flag className="w-7 h-7" />,
+  }}
+/>
 
-  <div className="relative mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-    {/* Vision Card */}
-    <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
-      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
-        <Target className="w-7 h-7" />
-      </div>
-      <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
-        Vision
-      </h3>
-      <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
-        To be the first choice for guardians and students seeking academic
-        excellence and all-round personal growth.
-      </p>
-    </div>
 
-    {/* Mission Card */}
-    <div className="group bg-white shadow-lg rounded-2xl p-7 md:p-8 transition hover:bg-[#0F75BD]">
-      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#0F75BD] text-white group-hover:bg-white group-hover:text-[#0F75BD] transition mb-5">
-        <Flag className="w-7 h-7" />
-      </div>
-      <h3 className="text-lg md:text-xl font-semibold text-[#0F75BD] group-hover:text-white">
-        Mission
-      </h3>
-      <p className="mt-3 text-gray-600 group-hover:text-gray-200 text-sm md:text-base">
-        To nurture well-rounded learners through experienced educators,
-        modern facilities, and a value-driven ethos that prepares students
-        for future challenges.
-      </p>
-    </div>
-  </div>
-
-  {/* Decorative Images */}
-  <img
-    src={aa}
-    alt="A+ logo"
-    className="absolute bottom-8 left-6 w-16 opacity-80"
-  />
-  <img
-    src={vector}
-    alt="Vector design"
-    className="absolute top-1/2 right-4 w-24 opacity-80"
-  />
-</section>
 
 
       {/* ====== COUNTER SECTION ====== */}
@@ -319,42 +296,59 @@ const Home = () => {
   </div>
 </section>
 {/* ====== CORE VALUES SECTION ====== */}
+
+{/* ====== CORE VALUES SECTION ====== */}
 <section className="relative bg-white py-16 md:py-20">
   <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
 
-    {/* Title centered on top */}
-    <div className="text-center mb-12">
+    {/* Title */}
+    <motion.div
+      className="text-center mb-12"
+      variants={titleVariant}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <p className="text-[#0F75BD] font-semibold uppercase tracking-wider text-xs md:text-sm">
         Our Values
       </p>
       <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
         The Core Values That Shape Us
       </h2>
-    </div>
+    </motion.div>
 
-    {/* Content: Left Image + Right Value Cards */}
+    {/* Content */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
-      {/* Left - Core Values Image */}
-      {/* Left - Core Values Image */}
-<div className="flex justify-center md:justify-start">
-  <div className="relative md:translate-x-16"> {/* Add slight shift to the right */}
-    <img
-      src={corevalues}
-      alt="Core Values"
-      className="rounded-lg shadow-lg w-64 md:w-80 lg:w-96 h-auto object-cover"
-    />
-    {/* Optional decorative overlay */}
-    <div className="absolute top-4 left-4 w-16 h-16 bg-[#0F75BD]/10 rounded-full blur-xl pointer-events-none"></div>
-  </div>
-</div>
+      {/* Left Image */}
+      <motion.div
+        className="flex justify-center md:justify-start"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="relative md:translate-x-16">
+          <img
+            src={corevalues}
+            alt="Core Values"
+            className="rounded-lg shadow-lg w-64 md:w-80 lg:w-96 h-auto object-cover"
+          />
+          <div className="absolute top-4 left-4 w-16 h-16 bg-[#0F75BD]/10 rounded-full blur-xl pointer-events-none" />
+        </div>
+      </motion.div>
 
-
-      {/* Right - Value Cards */}
-      <div className="space-y-7">
-
+      {/* Right Value List */}
+      <motion.div
+        className="space-y-7"
+        variants={listContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {/* Excellence */}
-        <div className="flex items-start gap-4">
+        <motion.div variants={listItem} className="flex items-start gap-4">
           <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
             <Handshake className="text-[#0F75BD] w-6 h-6" />
           </div>
@@ -363,13 +357,14 @@ const Home = () => {
               Excellence
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Pursuing the highest standards in education and learning with dedicated teachers and supportive academic guidance.
+              Pursuing the highest standards in education and learning with
+              dedicated teachers and supportive academic guidance.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Diversity */}
-        <div className="flex items-start gap-4">
+        <motion.div variants={listItem} className="flex items-start gap-4">
           <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
             <Shapes className="text-[#0F75BD] w-6 h-6" />
           </div>
@@ -378,13 +373,14 @@ const Home = () => {
               Diversity
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Fostering inclusion, celebrating differences, and respecting cultures within and beyond the classroom.
+              Fostering inclusion, celebrating differences, and respecting
+              cultures within and beyond the classroom.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Innovation */}
-        <div className="flex items-start gap-4">
+        <motion.div variants={listItem} className="flex items-start gap-4">
           <div className="bg-gray-100 p-3 rounded-full transition-all duration-300 hover:bg-[#0F75BD]/10 hover:scale-110 hover:shadow-lg">
             <Lightbulb className="text-[#0F75BD] w-6 h-6" />
           </div>
@@ -393,16 +389,17 @@ const Home = () => {
               Innovation
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Encouraging creativity and new ideas by creating a safe space for students to explore, experiment, and grow.
+              Encouraging creativity and new ideas by creating a safe space for
+              students to explore, experiment, and grow.
             </p>
           </div>
-        </div>
-
-      </div>
+        </motion.div>
+      </motion.div>
 
     </div>
   </div>
 </section>
+
 
 
 <section className="relative bg-white">
