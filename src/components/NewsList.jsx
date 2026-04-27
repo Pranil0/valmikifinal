@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebookF } from "react-icons/fa";
-import { newsItems } from "../data/newsData";
+import axios from "axios";
 
 const NewsList = ({ showSearch = true, limit, grid = "4" }) => {
+  const [news, setNews] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
 
-  // Auto-generate categories from newsData
-  const categories = ["All", ...new Set(newsItems.map((item) => item.category))];
+  // Fetch news from backend
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/news");
+        setNews(res.data);
+      } catch (err) {
+        console.error("Error fetching news:", err);
+      }
+    };
+    fetchNews();
+  }, []);
+
+  // Generate categories dynamically
+  const categories = ["All", ...new Set(news.map((item) => item.category))];
 
   // Filter logic
-  const filteredNews = newsItems.filter((item) => {
+  const filteredNews = news.filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchTerm.toLowerCase());
+      item.desc.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory =
       categoryFilter === "All" ||
@@ -26,17 +40,10 @@ const NewsList = ({ showSearch = true, limit, grid = "4" }) => {
 
   const displayedNews = limit ? filteredNews.slice(0, limit) : filteredNews;
 
-  // ------------------- Dynamic grid -------------------
+  // Dynamic grid
   let gridCols = "grid-cols-1";
-
-  if (grid === "2") {
-    // homepage → 2 columns on all screens above 640px
-    gridCols = "grid-cols-1 sm:grid-cols-2";
-  } else {
-    // default → 4 columns only on large screens
-    gridCols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
-  }
-  // ------------------------------------------------------
+  if (grid === "2") gridCols = "grid-cols-1 sm:grid-cols-2";
+  else gridCols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
 
   return (
     <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-gray-50">
@@ -80,7 +87,7 @@ const NewsList = ({ showSearch = true, limit, grid = "4" }) => {
             className="rounded-2xl overflow-hidden shadow-md group hover:shadow-xl transition duration-300 bg-white flex flex-col"
           >
             <img
-              src={item.img}
+              src={`http://localhost:5000/uploads/${item.image}`}
               alt={item.title}
               className="w-full h-44 md:h-48 object-cover transform group-hover:scale-105 transition duration-500"
             />
@@ -95,7 +102,7 @@ const NewsList = ({ showSearch = true, limit, grid = "4" }) => {
               </h3>
 
               <p className="text-xs md:text-sm text-gray-600 mb-3 line-clamp-3">
-                {item.description}
+                {item.desc}
               </p>
 
               <span className="text-[11px] text-gray-400 mb-3">
@@ -124,7 +131,6 @@ const NewsList = ({ showSearch = true, limit, grid = "4" }) => {
         ))}
       </div>
 
-      {/* More Articles */}
       {limit && filteredNews.length > limit && (
         <div className="mt-10 text-center">
           <Link

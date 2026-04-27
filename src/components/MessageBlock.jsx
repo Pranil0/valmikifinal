@@ -1,47 +1,82 @@
 import React from "react";
+import { FaQuoteLeft } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const MessageBlock = ({ img, name, designation, institute, message }) => {
   return (
-    <section className="max-w-6xl mx-auto px-6 md:px-8 pb-16 md:pb-20 mt-10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-        
-        {/* LEFT COLUMN – PHOTO + NAME CARD */}
-        <div className="lg:col-span-4 flex justify-center lg:justify-start">
-          <div className="w-[260px] md:w-[280px] relative">
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-white">
-              <img
-                src={img}
-                className="w-full h-[340px] md:h-[360px] object-cover"
-                alt={name}
-              />
-            </div>
+    <div className="max-w-6xl mx-auto">
+      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
 
-            {/* Name Card */}
-            <div
-              className="absolute left-1/2 -translate-x-1/2 px-4 py-3 text-center rounded-xl w-[210px]"
-              style={{
-                bottom: "-32px",
-                background: "rgba(255,255,255,0.97)",
-                boxShadow: "0 10px 25px rgba(15,117,189,0.15)",
-              }}
+          {/* ── LEFT: photo panel ── */}
+          <div className="lg:col-span-4 relative bg-gradient-to-b from-[#0F75BD]/5 to-[#0F75BD]/10 flex flex-col items-center justify-start pt-10 pb-16 px-8">
+
+            {/* amber top accent bar */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FCA61B] to-[#f8d07a]" />
+
+            {/* photo */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
             >
-              <p className="font-semibold text-sm md:text-base text-gray-900">{name}</p>
-              <p className="text-[#CC0033] text-xs md:text-[13px] font-semibold uppercase mt-1 tracking-wide">
+              <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+                <img
+                  src={img}
+                  alt={name}
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              {/* blue corner accent */}
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-xl bg-[#0F75BD] flex items-center justify-center shadow-lg">
+                <FaQuoteLeft className="text-white text-sm" />
+              </div>
+            </motion.div>
+
+            {/* name card */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mt-8 text-center"
+            >
+              <p className="font-bold text-gray-900 text-base md:text-lg leading-tight">
+                {name}
+              </p>
+              <div className="w-10 h-0.5 bg-[#FCA61B] rounded-full mx-auto my-2" />
+              <p className="text-[#0F75BD] text-xs font-bold uppercase tracking-widest">
                 {designation}
               </p>
-              <p className="text-[#0F75BD] text-[10px] md:text-[11px] tracking-[0.24em] uppercase mt-1">
+              <p className="text-gray-400 text-xs uppercase tracking-widest mt-1">
                 {institute}
               </p>
-            </div>
+            </motion.div>
+
+          </div>
+
+          {/* ── RIGHT: message panel ── */}
+          <div className="lg:col-span-8 p-8 md:p-12 flex flex-col justify-center">
+
+            {/* decorative quote */}
+            <FaQuoteLeft className="text-[#0F75BD]/8 text-7xl mb-4 -ml-2" />
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-gray-600 text-sm md:text-[15px] leading-relaxed space-y-4"
+            >
+              {message}
+            </motion.div>
+
           </div>
         </div>
-
-        {/* RIGHT COLUMN – MESSAGE TEXT */}
-        <div className="lg:col-span-8 text-[#555555] text-sm md:text-[15px] leading-relaxed mt-10 lg:mt-0">
-          {message}
-        </div>
       </div>
-    </section>
+    </div>
   );
 };
 

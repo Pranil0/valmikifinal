@@ -8,41 +8,34 @@ const HeroSection = ({
   title,
   subtitle,
   breadcrumb = [],
-  size = "normal",            // small | normal | large | fullscreen
-  animatedOverlay = false,    // true for gradient animation (Achievements style)
+  badge,
+  size = "normal",
+  titleStyle = "white",
+  overlayStyle = "bottom-heavy",
 }) => {
-  /* ================= ANIMATIONS ================= */
-  const heroTextVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1 },
-    },
-  };
 
-  /* ================= HEIGHT PRESETS ================= */
   const heightClasses = {
-    small: "h-[45vh] md:h-[55vh]",
-    normal: "h-[60vh] md:h-[70vh]",
-    large: "h-[70vh] md:h-[80vh]",
+    compact:    "h-[40vh] md:h-[48vh]",
+    small:      "h-[45vh] md:h-[55vh]",
+    normal:     "h-[60vh] md:h-[70vh]",
+    large:      "h-[70vh] md:h-[82vh]",
     fullscreen: "h-screen",
   };
 
-  const heroHeight = heightClasses[size] || heightClasses.normal;
+  const heroHeight = heightClasses[size] ?? heightClasses.normal;
+
+  const overlayStyle_map = {
+    "bottom-heavy": "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.82) 100%)",
+    "uniform":      "rgba(0,0,0,0.52)",
+  };
 
   return (
-    <section
-      className={`relative w-full overflow-hidden ${heroHeight}`}
-    >
-      {/* ============== BACKGROUND (VIDEO / IMAGE) ============== */}
+    <section className={`relative w-full overflow-hidden ${heroHeight}`}>
+
+      {/* background */}
       {video ? (
         <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
+          autoPlay muted loop playsInline preload="metadata"
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src={video} type="video/mp4" />
@@ -51,87 +44,69 @@ const HeroSection = ({
         <img
           src={image}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
         />
       )}
 
-      {/* ============== OVERLAY ============== */}
-      {animatedOverlay ? (
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-black/40 to-black/70 animate-gradientMove" />
-      ) : (
-        <div className="absolute inset-0 z-10 bg-black/50" />
-      )}
+      {/* ── overlay — ADD THIS LINE ── */}
+      <div
+        className="absolute inset-0 z-10 pointer-events-none"
+        style={{ background: overlayStyle_map[overlayStyle] ?? overlayStyle_map["bottom-heavy"] }}
+      />
 
-      {/* ============== CONTENT ============== */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6">
-        {/* Breadcrumb */}
+      {/* content — position unchanged */}
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center pt-10">
+
         {breadcrumb.length > 0 && (
-          <nav className="text-xs md:text-sm text-gray-200 mb-4 flex items-center gap-1">
-            {breadcrumb.map((item, index) => (
-              <span key={index} className="flex items-center">
-                {item.link ? (
-                  <Link
-                    to={item.link}
-                    className="hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <span className="text-[#FCA61B] font-semibold">
-                    {item.label}
-                  </span>
-                )}
-                {index < breadcrumb.length - 1 && (
-                  <span className="mx-1 text-gray-400">/</span>
-                )}
+          <nav className="flex justify-center items-center gap-2 text-xs text-white/50 mb-4">
+            {breadcrumb.map((item, i) => (
+              <span key={i} className="flex items-center gap-2">
+                {item.link
+                  ? <Link to={item.link} className="hover:text-white transition-colors">{item.label}</Link>
+                  : <span className="text-[#FCA61B] font-semibold">{item.label}</span>
+                }
+                {i < breadcrumb.length - 1 && <span className="text-white/30">/</span>}
               </span>
             ))}
           </nav>
         )}
 
-        {/* Title */}
+        {badge && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center bg-[#FCA61B]/15 border border-[#FCA61B]/35 text-[#FCA61B] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-3"
+          >
+            {badge}
+          </motion.div>
+        )}
+
         <motion.h1
-          className="
-            text-3xl md:text-5xl lg:text-6xl
-            font-extrabold
-            bg-gradient-to-r from-[#FCA61B] via-white to-[#FCA61B]
-            bg-clip-text text-transparent
-            drop-shadow-2xl
-          "
-          variants={heroTextVariants}
-          initial="hidden"
-          animate="visible"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className={`text-3xl md:text-5xl font-extrabold leading-tight mb-2 drop-shadow-xl
+            ${titleStyle === "gradient"
+              ? "bg-gradient-to-r from-[#FCA61B] via-white to-[#FCA61B] bg-clip-text text-transparent"
+              : "text-white"
+            }`}
         >
           {title}
         </motion.h1>
 
-        {/* Subtitle */}
         {subtitle && (
           <motion.p
-            className="mt-4 text-base md:text-xl text-white max-w-2xl drop-shadow-lg"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-sm md:text-base text-white/60 max-w-xl leading-relaxed"
           >
             {subtitle}
           </motion.p>
         )}
-      </div>
 
-      {/* ============== ANIMATED GRADIENT CSS ============== */}
-      {animatedOverlay && (
-        <style>{`
-          @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-          .animate-gradientMove {
-            background-size: 200% 200%;
-            animation: gradientMove 20s ease infinite;
-          }
-        `}</style>
-      )}
+      </div>
     </section>
   );
 };

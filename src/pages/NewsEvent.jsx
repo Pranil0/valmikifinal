@@ -2,13 +2,12 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { saveAs } from "file-saver";
 import { FiDownload, FiX } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
-import  { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaFacebookF,} from "react-icons/fa";
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import HeroSection from "../components/HeroSection";
-import blogHeroImg from "../assets/valmikibuilding.png";
-// Import your images
+import schoolBg from "../assets/valmikibuilding.png";
+import API from "../services/api";
+
 import photo1 from "../assets/photo1.webp";
 import photo2 from "../assets/photo2.webp";
 import photo3 from "../assets/photo3.webp";
@@ -18,334 +17,396 @@ import photo6 from "../assets/photo6.webp";
 import photo7 from "../assets/photo7.webp";
 import photo8 from "../assets/photo8.webp";
 
-
 import NewsList from "../components/NewsList";
-import valmikibuilding from "../assets/valmikibuilding.png";
-import foodfestival from "../assets/foodfestival.webp";
-import dancingstar from "../assets/dancingstar.webp";
-import dipawalirangoli from "../assets/dipawalirangoli.webp";
-import orientationclass11 from "../assets/orientationclass11.webp";
-import itfest from "../assets/itfest.webp";
-import sciencefair from "../assets/sciencefair.webp";
-import sportsmeet from "../assets/sportsmeet.webp";
 import CTA from "../components/CTA";
-
-
-const categories = ["All", "Academic", "Co-Curricular", "Alumni", "Announcements"];
-
-// Simple image pool for demo
-const imagePool = [
-  foodfestival,
-  dancingstar,
-  dipawalirangoli,
-  orientationclass11,
-  itfest,
- photo4,
-  sportsmeet,
-  sciencefair,
-];
-
-
-// News data
-const newsItems = [
-  {
-    id: 1,
-    title: "Valmiki Food Festival 2082",
-    category: "Events",
-    date: "2025-11-10",
-    img: foodfestival,
-    description:
-      "Students showcased culinary talents with delicious dishes representing local and international cuisines.",
-  },
-  {
-    id: 2,
-    title: "Valmiki Dancing Star 2082",
-    category: "Events",
-    date: "2025-11-05",
-    img: dancingstar,
-    description:
-      "An exciting dance competition highlighting creativity, rhythm, and team performances among students.",
-  },
-  {
-    id: 3,
-    title: "Happy Dipawali: Rangoli Celebration",
-    category: "Festivals",
-    date: "2025-10-25",
-    img: dipawalirangoli,
-    description:
-      "Students created colorful rangolis to celebrate the festival of lights, fostering creativity and cultural spirit.",
-  },
-  {
-    id: 4,
-    title: "Orientation Program for Class 11",
-    category: "Academic",
-    date: "2025-09-15",
-    img: orientationclass11,
-    description:
-      "Fresh +2 students were welcomed with an orientation program introducing the curriculum, teachers, and campus culture.",
-  },
-  {
-    id: 5,
-    title: "IT Fest 2082",
-    category: "Events",
-    date: "2025-08-20",
-    img: itfest,
-    description:
-      "Students participated in coding, robotics, and digital projects, demonstrating innovative technology solutions.",
-  },
-  {
-    id: 6,
-    title: "Scholarship Opportunities for Meritorious Students",
-    category: "Announcements",
-    date: "2025-07-30",
-    img: photo4,
-    description:
-      "Meritorious students were awarded scholarships for academic excellence and dedication to studies.",
-  },
-  {
-    id: 7,
-    title: "Valmiki Sports Meet 2082: Spirit of Teamwork",
-    category: "Sports",
-    date: "2025-06-18",
-    img: sportsmeet,
-    description:
-      "A day of sports and competitions promoting teamwork, sportsmanship, and physical fitness among students.",
-  },
-  {
-    id: 8,
-    title: "Science & Innovation Fair 2025",
-    category: "Academic",
-    date: "2025-05-10",
-    img: sciencefair,
-    description:
-      "Students displayed innovative projects in science and technology, showcasing creativity and critical thinking.",
-  },
-];
-
-// Upcoming events
-const events = [
-  { date: "2025-12-05", title: "Inter-College Science Fair 2025", detail: "Project displays, live experiments and innovation stalls by Grade IX–XII." },
-  { date: "2025-12-10", title: "Valmiki Cultural Evening", detail: "Performances, music, drama and dance by students of all grades." },
-  { date: "2025-12-15", title: "Parent–Teacher Interaction Session", detail: "Focused discussions on student progress, behaviour and future plans." },
-  { date: "2025-12-20", title: "Annual Sports Day 2082", detail: "Track and field events, house competitions and award distribution." },
-];
-
-const NewsEvent = () => {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-
-  const filteredNews = newsItems.filter((item) => {
-    const matchCategory = category === "All" || item.category === category;
-    const matchSearch = item.title.toLowerCase().includes(search.toLowerCase());
-    return matchCategory && matchSearch;
-  });
+import { Calendar, Clock, MapPin, Sparkles } from "lucide-react";
 
 const highlightImages = [photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8];
 
-const [isOpen, setIsOpen] = useState(false);
-const [photoIndex, setPhotoIndex] = useState(0);
-
-// Framer Motion variants
-const imageVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-  hover: { scale: 1.05 },
+const getCategoryColor = (category) => {
+  const map = {
+    Academic: "bg-[#0F75BD]",
+    Cultural: "bg-[#FCA61B]",
+    "Co-curricular": "bg-[#15803D]",
+    Sports: "bg-[#15803D]",
+    Workshop: "bg-[#FCA61B]",
+    Seminar: "bg-[#0F75BD]",
+  };
+  return map[category] || "bg-[#0F75BD]";
 };
 
+const formatDateRange = (start, end) => {
+  const s = new Date(start);
+  const e = new Date(end);
+  const sameDay =
+    s.getFullYear() === e.getFullYear() &&
+    s.getMonth() === e.getMonth() &&
+    s.getDate() === e.getDate();
+  if (sameDay)
+    return s.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const sameMonthYear =
+    s.getFullYear() === e.getFullYear() && s.getMonth() === e.getMonth();
+  if (sameMonthYear)
+    return `${s.toLocaleDateString("en-US", { month: "long" })} ${s.getDate()} – ${e.getDate()}, ${s.getFullYear()}`;
+  const startStr = s.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const endStr = e.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return `${startStr} – ${endStr}`;
+};
 
+const formatTimeRange = (start, end) => {
+  const opts = { hour: "numeric", minute: "2-digit", hour12: true };
+  const s = new Date(start).toLocaleTimeString("en-US", opts);
+  const e = new Date(end).toLocaleTimeString("en-US", opts);
+  return `${s} – ${e}`;
+};
+
+const NewsEvent = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [events, setEvents] = useState([]);
+
+  const imageVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    hover: { scale: 1.05 },
+  };
+
+  const fetchEvents = async () => {
+    try {
+      const res = await API.get("/events");
+      const upcomingEvents = res.data.filter(
+        (event) => new Date(event.endDateTime) >= new Date()
+      );
+      setEvents(upcomingEvents);
+    } catch (err) {
+      console.error("Failed to fetch events:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   return (
     <>
-      {/* ====== HERO SECTION ====== */}
-      
-         <HeroSection
-  image={blogHeroImg}
-  title="News & Events"
-  subtitle="Stay updated with important announcements, student achievements, and the vibrant life of Valmiki Shiksha Sadan."
-  breadcrumb={[
-    { label: "Home", link: "/" },
-    { label: "News & Events" }
-  ]}
-   size="small"
-/>
+      {/* ── HERO ── */}
+      <HeroSection
+        image={schoolBg}
+        title="News & Events"
+        subtitle="Stay updated with the latest happenings at Valmiki Shiksha Sadan."
+        badge="Latest Updates"
+        breadcrumb={[{ label: "Home", link: "/" }, { label: "News & Events" }]}
+        size="compact"
+        titleStyle="white"
+        overlayStyle="bottom-heavy"
+      />
 
-{/* ====== Video Highlights Section ====== */}
-<section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-gray-50">
-  <div className="max-w-7xl mx-auto text-center">
-    {/* Section Title */}
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F75BD]">
-      Video Highlights
-    </h2>
-    <p className="mt-4 text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
-      Watch these videos to get a glimpse of our recent events and student activities at Valmiki Shiksha Sadan.
-    </p>
+      {/* ── VIDEO HIGHLIGHTS ── */}
+      <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <p className="text-[#FCA61B] text-xs font-black uppercase tracking-widest mb-2">Watch</p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F75BD]">
+              Video Highlights
+            </h2>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: 48 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="h-1 bg-[#FCA61B] rounded-full mx-auto mt-4"
+            />
+            <p className="mt-4 text-sm md:text-base text-gray-500 max-w-2xl mx-auto">
+              Watch these videos to get a glimpse of our recent events and student activities.
+            </p>
+          </motion.div>
 
-    {/* Video Cards */}
-    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      
-      {/* First Video */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
-        <div className="relative w-full aspect-video">
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/qBmQF6W1qhY"
-            title="Valmiki Shiksha Sadan Video 1"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-        <div className="p-4 text-left">
-          <h3 className="text-lg md:text-xl font-semibold text-gray-900">
-            Campus & Event Highlights
-          </h3>
-          <p className="text-sm md:text-base text-gray-600 mt-1">
-            A glimpse of recent events, student activities, and achievements at Valmiki Shiksha Sadan.
-          </p>
-        </div>
-      </div>
-
-      {/* Second Video */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
-        <div className="relative w-full aspect-video">
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/GQAOeJev_gY"
-            title="Valmiki Shiksha Sadan Video 2"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-        <div className="p-4 text-left">
-          <h3 className="text-lg md:text-xl font-semibold text-gray-900">
-            Academic & Co-Curricular Activities
-          </h3>
-          <p className="text-sm md:text-base text-gray-600 mt-1">
-            Explore our academic programs, co-curricular initiatives, and vibrant student life.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-      {/* ====== RECENT NEWS / ANNOUNCEMENTS ====== */}
-      <NewsList showSearch={true} />
-
-      {/* ====== EVENT CALENDAR ====== */}
-      <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F75BD]">
-            Upcoming Events
-          </h2>
-          <p className="mt-4 text-sm md:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Mark your calendar and be a part of our academic, cultural and
-            co-curricular events throughout the school year.
-          </p>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-          {events.map((event, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-2xl shadow-md p-6 text-center hover:shadow-xl transition duration-300 border border-gray-100"
-            >
-              <div className="text-xs font-semibold uppercase tracking-wide text-[#0F75BD] mb-2">
-                {new Date(event.date).toLocaleDateString()}
-              </div>
-              <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">
-                {event.title}
-              </h3>
-              <p className="text-xs md:text-sm text-gray-600">
-                {event.detail}
-              </p>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                id: "qBmQF6W1qhY",
+                title: "Campus & Event Highlights",
+                desc: "A glimpse of recent events, student activities, and achievements.",
+              },
+              {
+                id: "GQAOeJev_gY",
+                title: "Academic & Co-Curricular Activities",
+                desc: "Explore our academic programs, co-curricular initiatives, and vibrant student life.",
+              },
+            ].map((v, i) => (
+              <motion.div
+                key={v.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="relative w-full aspect-video">
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${v.id}`}
+                    title={v.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="p-4 border-t border-gray-100 text-left">
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900">{v.title}</h3>
+                  <p className="text-sm text-gray-500 mt-1">{v.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ====== EVENT GALLERY / HIGHLIGHTS ====== */}
+      {/* ── RECENT NEWS ── */}
+      <NewsList showSearch={true} />
+
+      {/* ── UPCOMING EVENTS ── */}
+      <section className="py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-24 bg-[#EFF6FF]">
+        <div className="max-w-7xl mx-auto">
+
+          <div className="mb-10 md:mb-16 text-center max-w-2xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center justify-center gap-2 font-bold tracking-widest uppercase text-xs mb-4"
+              style={{ color: "#FCA61B" }}
+            >
+              <Sparkles size={14} />
+              <span>Stay Updated</span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              /* Scaled down on mobile so it doesn't overflow */
+              className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[0.9]"
+              style={{ color: "#0F75BD" }}
+            >
+              Upcoming Events
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="mt-5 md:mt-6 text-sm md:text-lg text-slate-500 leading-relaxed"
+            >
+              Mark your calendar and be a part of our academic, cultural and co-curricular events throughout the school year.
+            </motion.p>
+          </div>
+
+          {events.length === 0 ? (
+            <div className="text-center py-16 text-gray-400 text-sm">No upcoming events at the moment.</div>
+          ) : (
+            <div className="grid grid-cols-1 gap-5 md:gap-6">
+              {events.map((event, index) => {
+                const dateObj = new Date(event.startDateTime);
+                const day = dateObj.getDate();
+                const month = dateObj.toLocaleString("en-US", { month: "long" });
+                const accent = getCategoryColor(event.category);
+                const timeLabel = formatTimeRange(event.startDateTime, event.endDateTime);
+                const dateLabel = formatDateRange(event.startDateTime, event.endDateTime);
+                const isMultiDay =
+                  new Date(event.startDateTime).toDateString() !==
+                  new Date(event.endDateTime).toDateString();
+
+                return (
+                  <motion.div
+                    key={event.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="group relative bg-white rounded-[2rem] md:rounded-[2.5rem]
+                               p-5 sm:p-7 md:p-10
+                               flex flex-col md:flex-row
+                               items-start md:items-center
+                               gap-4 md:gap-12
+                               hover:bg-[#0F75BD] transition-all duration-500
+                               overflow-hidden border border-blue-100"
+                  >
+                    {/* Left amber accent bar */}
+                    <div className="absolute left-0 top-0 h-full w-1.5 rounded-l-[2rem] md:rounded-l-[2.5rem] bg-[#FCA61B] group-hover:bg-white/30 transition-colors duration-500" />
+
+                    {/* ── MOBILE top row: date left + button right ── */}
+                    <div className="flex md:hidden w-full items-center justify-between pl-3">
+                      {/* Date — horizontal compact on mobile */}
+                      <div className="flex items-baseline gap-2.5">
+                        <span className="text-4xl font-black tracking-tighter leading-none text-[#0F75BD] group-hover:text-white transition-colors duration-500">
+                          {isMultiDay
+                            ? `${day}–${new Date(event.endDateTime).getDate()}`
+                            : day}
+                        </span>
+                        <span className="text-sm font-bold uppercase tracking-widest text-[#FCA61B] group-hover:text-white/70 transition-colors duration-500">
+                          {month}
+                        </span>
+                      </div>
+                      {/* Action button — top-right on mobile */}
+                      <button className="w-11 h-11 rounded-full flex items-center justify-center shadow-md shrink-0 transition-all duration-300 bg-[#FCA61B] text-white group-hover:bg-white group-hover:text-[#0F75BD]">
+                        <Calendar size={17} />
+                      </button>
+                    </div>
+
+                    {/* ── DESKTOP: original large date block ── */}
+                    <div className="hidden md:flex flex-col items-center justify-center min-w-[120px] text-center pl-4">
+                      {isMultiDay ? (
+                        <span className="text-5xl font-black tracking-tighter transition-colors leading-none text-[#0F75BD] group-hover:text-white">
+                          {day} – {new Date(event.endDateTime).getDate()}
+                        </span>
+                      ) : (
+                        <span className="text-6xl font-black tracking-tighter transition-colors leading-none text-[#0F75BD] group-hover:text-white">
+                          {day}
+                        </span>
+                      )}
+                      <span className="text-sm font-bold uppercase tracking-widest mt-2 transition-colors text-[#FCA61B] group-hover:text-white/70">
+                        {month}
+                      </span>
+                    </div>
+
+                    {/* Vertical Divider — desktop only */}
+                    <div className="hidden md:block w-px h-20 bg-blue-100 group-hover:bg-white/20 transition-colors" />
+
+                    {/* Content — shared, with mobile padding adjustment */}
+                    <div className="flex-1 space-y-2.5 md:space-y-4 pl-3 md:pl-0 w-full">
+                      <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white ${accent}`}>
+                          {event.category}
+                        </span>
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400 group-hover:text-white/70 transition-colors">
+                          <Clock size={12} style={{ color: "#FCA61B" }} className="group-hover:text-white transition-colors shrink-0" />
+                          <span>{timeLabel}</span>
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg sm:text-xl md:text-3xl font-bold transition-colors leading-tight text-slate-900 group-hover:text-white">
+                        {event.title}
+                      </h3>
+
+                      <p className="max-w-2xl text-sm md:text-base leading-relaxed text-slate-500 group-hover:text-white/70 transition-colors line-clamp-2 md:line-clamp-none">
+                        {event.description}
+                      </p>
+
+                      {event.location && (
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 group-hover:text-white/70 transition-colors">
+                          <MapPin size={12} style={{ color: "#FCA61B" }} className="shrink-0" />
+                          <span>{event.location}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Action Button — desktop only */}
+                    <div className="hidden md:flex shrink-0">
+                      <button className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 bg-[#FCA61B] text-white group-hover:bg-white group-hover:text-[#0F75BD]">
+                        <Calendar size={20} />
+                      </button>
+                    </div>
+
+                    {/* Background glow */}
+                    <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full blur-[100px] opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-[#FCA61B]" />
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── EVENT HIGHLIGHTS ── */}
       <section className="py-16 md:py-20 px-6 md:px-12 lg:px-20 bg-white">
-  <div className="max-w-7xl mx-auto text-center">
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F75BD]">
-      Event Highlights
-    </h2>
-    <p className="mt-4 text-sm md:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
-      A visual glimpse into recent events, celebrations and student-led activities at Valmiki Shiksha Sadan.
-    </p>
-  </div>
-
-  <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-    {highlightImages.map((img, idx) => (
-      <motion.div
-        key={idx}
-        className="cursor-pointer overflow-hidden rounded-xl shadow-lg"
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
-        whileHover="hover"
-        transition={{ duration: 0.3, delay: idx * 0.1 }}
-        onClick={() => {
-          setPhotoIndex(idx);
-          setIsOpen(true);
-        }}
-      >
-        <img src={img} alt={`Event highlight ${idx + 1}`} className="w-full h-56 md:h-60 object-cover" />
-      </motion.div>
-    ))}
-  </div>
-
-  {isOpen && (
-    <Lightbox
-      open={isOpen}
-      close={() => setIsOpen(false)}
-      index={photoIndex}
-      onIndexChange={setPhotoIndex}
-      slides={highlightImages.map((img) => ({
-        src: img,
-        render: ({ slide }) => (
-          <AnimatePresence>
-            <motion.img
-              key={slide.src}
-              src={slide.src}
-              alt=""
-              initial={{ x: 300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -300, opacity: 0 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              className="w-full h-full object-contain"
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <p className="text-[#FCA61B] text-xs font-black uppercase tracking-widest mb-2">Gallery</p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0F75BD]">
+              Event Highlights
+            </h2>
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: 48 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="h-1 bg-[#FCA61B] rounded-full mx-auto mt-4"
             />
-          </AnimatePresence>
-        ),
-      }))}
-      toolbar={{
-        buttons: [
-          <button
-            key="download"
-            onClick={() => saveAs(highlightImages[photoIndex], `highlight-${photoIndex + 1}.jpg`)}
-            className="p-2 ml-2 bg-white/90 text-gray-800 rounded-full shadow hover:bg-white transition"
-            title="Download"
-          >
-            <FiDownload size={22} />
-          </button>,
-          <button
-            key="close"
-            onClick={() => setIsOpen(false)}
-            className="p-2 ml-2 bg-white/90 text-gray-800 rounded-full shadow hover:bg-white transition"
-            title="Close"
-          >
-            <FiX size={22} />
-          </button>,
-        ],
-      }}
-    />
-  )}
-</section>
+            <p className="mt-4 text-sm md:text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
+              A visual glimpse into recent events, celebrations and student-led activities.
+            </p>
+          </motion.div>
 
-      {/* ====== NEWSLETTER / CTA ====== */}
-      <CTA/>
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            {highlightImages.map((img, idx) => (
+              <motion.div
+                key={idx}
+                className="cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-xl"
+                variants={imageVariants}
+                initial="hidden"
+                whileInView="visible"
+                whileHover="hover"
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: idx * 0.07 }}
+                onClick={() => {
+                  setPhotoIndex(idx);
+                  setIsOpen(true);
+                }}
+              >
+                <img
+                  src={img}
+                  alt={`Event highlight ${idx + 1}`}
+                  className="w-full h-36 sm:h-48 md:h-56 object-cover"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {isOpen && (
+          <Lightbox
+            open={isOpen}
+            close={() => setIsOpen(false)}
+            index={photoIndex}
+            onIndexChange={setPhotoIndex}
+            slides={highlightImages.map((img) => ({ src: img }))}
+            toolbar={{
+              buttons: [
+                <button
+                  key="download"
+                  onClick={() => saveAs(highlightImages[photoIndex], `highlight-${photoIndex + 1}.jpg`)}
+                  className="p-2 ml-2 bg-white/90 text-gray-800 rounded-full shadow hover:bg-white transition"
+                  title="Download"
+                >
+                  <FiDownload size={22} />
+                </button>,
+                <button
+                  key="close"
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 ml-2 bg-white/90 text-gray-800 rounded-full shadow hover:bg-white transition"
+                  title="Close"
+                >
+                  <FiX size={22} />
+                </button>,
+              ],
+            }}
+          />
+        )}
+      </section>
+
+      {/* ── CTA ── */}
+      <CTA />
     </>
   );
 };
